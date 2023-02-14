@@ -72,3 +72,5 @@ group :test do
 end
 
 gem "vite_rails", "~> 3.0"
+
+gem 'friendly_id', '~> 5.4.0'
