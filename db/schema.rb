@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_232440) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_14_234411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -26,6 +26,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_232440) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "survey_id", null: false
+    t.string "type"
+    t.string "question_text"
+    t.string "default_text"
+    t.string "placeholder"
+    t.string "position"
+    t.string "answert_options"
+    t.string "validation_rules"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_questions_on_survey_id"
+  end
+
   create_table "surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "slug"
     t.string "name"
@@ -36,4 +50,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_232440) do
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
   end
 
+  add_foreign_key "questions", "surveys"
 end
