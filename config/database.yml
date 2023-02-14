@@ -7,11 +7,11 @@ default: &default
 
 development:
   <<: *default
-  database: survey_development
+  database: app_development
 
 test:
   <<: *default
-  database: survey_test
+  database: app_test
 
 production:
   <<: *default
