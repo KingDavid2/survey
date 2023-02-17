@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_234411) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_17_144623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "attempts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "survey_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_attempts_on_survey_id"
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -44,11 +51,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_234411) do
     t.string "slug"
     t.string "name"
     t.text "introduction"
-    t.text "conclution"
+    t.text "conclusion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
   end
 
+  add_foreign_key "attempts", "surveys"
   add_foreign_key "questions", "surveys"
 end

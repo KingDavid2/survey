@@ -5,7 +5,7 @@ class CreateSurveys < ActiveRecord::Migration[7.0]
       t.index :slug, unique: true
       t.string :name
       t.text :introduction
-      t.text :conclution
+      t.text :conclusion
 
       t.timestamps
     end
