@@ -6,14 +6,14 @@ module Questions
       ""
     end
     def options
-      answer_options.split(Global::Vars::Answers_delimiter)
+      answer_options.split(Global.answers_delimiter)
     end
 
     def validate_answer(answer)
       super(answer)
 
       if rules[:presence] == "1" || answer.answer_text.present?
-        answer.answer_text.to_s.split(Global::Vars::Answers_delimiter).each do |value|
+        answer.answer_text.to_s.split(Global.answers_delimiter).each do |value|
           answer.errors.add(:answer_text, :invalid) unless options.include?(value)
         end
       end

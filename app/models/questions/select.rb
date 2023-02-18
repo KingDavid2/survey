@@ -3,7 +3,7 @@ module Questions
     validates :answer_options, :presence => true
 
     def options
-      answer_options.split(Global::Vars::Answers_delimiter)
+      answer_options.split(Global.answers_delimiter)
     end
 
     def validate_answer(answer)
