@@ -7,7 +7,7 @@ class CreateQuestions < ActiveRecord::Migration[7.0]
       t.string :default_text
       t.string :placeholder
       t.string :position
-      t.string :answert_options
+      t.string :answer_options
       t.string :validation_rules
 
       t.timestamps

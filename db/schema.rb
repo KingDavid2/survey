@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_145001) do
     t.string "default_text"
     t.string "placeholder"
     t.string "position"
-    t.string "answert_options"
+    t.string "answer_options"
     t.string "validation_rules"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
