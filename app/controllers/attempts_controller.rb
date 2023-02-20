@@ -1,4 +1,5 @@
 class AttemptsController < ApplicationController
+  before_action :find_client!
   before_action :find_survey!
 
   def show
@@ -34,9 +35,12 @@ class AttemptsController < ApplicationController
   end
 
   private
+  def find_client!
+    @client = Client.find(params[:client_id])
+  end
 
   def find_survey!
-    @survey = Survey.find(params[:survey_id])
+    @survey = @client.surveys.find(params[:survey_id])
   end
 
   def attempt_params

@@ -2,6 +2,9 @@
   <%= params[:active].to_i == 0 ? "In-A" : "A" %>ctive Surveys
 </h2>
 <h3>
+    <%= link_to "New Client", new_client_path %>
+</h3>
+<h3>
     <%= link_to "New Survey", new_survey_path %>
 </h3>
 <h4>
@@ -16,6 +19,7 @@
   </colgroup>
   <thead>
     <tr>
+      <th>Client</th>
       <th>Survey</th>
       <th>Action</th>
     </tr>

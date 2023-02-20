@@ -10,6 +10,11 @@
   <% end %>
 
   <div class="form-group">
+    <%= f.label :client %>
+    <%= f.select(:client_id, Client.all.collect {|p| [ p.name, p.id ] }, { include_blank: true })%>
+  </div>
+
+  <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>

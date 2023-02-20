@@ -70,7 +70,7 @@
     private
 
     def survey_params
-      params.require(:survey).permit(:name, :introduction, :conclusion, :active)
+      params.require(:survey).permit(:name, :introduction, :conclusion, :active, :client_id)
     end
 
     def filter_params

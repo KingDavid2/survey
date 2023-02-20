@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_18_044126) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_18_050543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -30,6 +30,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_044126) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["survey_id"], name: "index_attempts_on_survey_id"
+  end
+
+  create_table "clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "slug"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_clients_on_slug", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -64,6 +72,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_044126) do
     t.text "conclusion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "client_id", null: false
+    t.index ["client_id"], name: "index_surveys_on_client_id"
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
   end
 
@@ -83,4 +93,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_044126) do
   add_foreign_key "answers", "questions"
   add_foreign_key "attempts", "surveys"
   add_foreign_key "questions", "surveys"
+  add_foreign_key "surveys", "clients"
 end
