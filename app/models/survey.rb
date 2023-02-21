@@ -1,4 +1,6 @@
 class Survey < ApplicationRecord
+  self.implicit_order_column = "created_at"
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 

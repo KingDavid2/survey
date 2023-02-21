@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  self.implicit_order_column = "created_at"
+
   belongs_to :survey, :inverse_of => :questions
   has_many   :answers
 
