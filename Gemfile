@@ -79,3 +79,5 @@ gem "vite_rails", "~> 3.0"
 gem 'friendly_id', '~> 5.4.0'
 
 gem 'devise', '~> 4.9.0'
+
+gem 'bootstrap', '~> 5.2.0'

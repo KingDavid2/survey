@@ -1,6 +1,6 @@
 class AttemptsController < ApplicationController
-  before_action :find_client!
   before_action :find_survey!
+  before_action :find_client!
 
   def show
     @attempt = @survey.attempts.find_by(attempt_params_for_find)
@@ -36,11 +36,11 @@ class AttemptsController < ApplicationController
 
   private
   def find_client!
-    @client = Client.find(params[:client_id])
+    @client = @survey.client
   end
 
   def find_survey!
-    @survey = @client.surveys.find(params[:survey_id])
+    @survey = Survey.find(params[:survey_id])
   end
 
   def attempt_params
@@ -64,7 +64,7 @@ class AttemptsController < ApplicationController
   #   end
   def after_answer_path_for
     if @survey.conclusion.present?
-      survey_attempt_path(@survey, @attempt_builder.to_model)
+      client_survey_attempt_path(@survey.client, @survey, @attempt_builder.to_model)
     else
       surveys_path
     end

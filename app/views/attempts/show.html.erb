@@ -1,1 +1,2 @@
 <%= @survey.conclusion.html_safe %>
+<%= link_to 'comenzar', new_attempt_flath_path(@survey.client, @survey) %>

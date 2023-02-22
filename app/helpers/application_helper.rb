@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+  def render_answer_question_helper(answer)
+    "#{answer.question.position}. #{answer.question.question_text}".html_safe
+  end
+
   def render_answer_form_helper(answer, form)
     partial = answer.question.type.to_s.split("::").last.downcase
     render partial: "answer_wrapper", locals: { f: form, answer: answer, partial: partial }

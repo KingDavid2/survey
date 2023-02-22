@@ -57,9 +57,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_050543) do
     t.string "question_text"
     t.string "default_text"
     t.string "placeholder"
-    t.string "position"
+    t.integer "position"
     t.string "answer_options"
     t.string "validation_rules"
+    t.integer "section"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["survey_id"], name: "index_questions_on_survey_id"

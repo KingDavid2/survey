@@ -6,9 +6,10 @@ class CreateQuestions < ActiveRecord::Migration[7.0]
       t.string :question_text
       t.string :default_text
       t.string :placeholder
-      t.string :position
+      t.integer :position
       t.string :answer_options
       t.string :validation_rules
+      t.integer :section
 
       t.timestamps
     end

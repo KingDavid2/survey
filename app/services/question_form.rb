@@ -18,7 +18,7 @@ class QuestionForm < BaseService
   end
 
   attr_accessor :survey, :question, :default_text, :placeholder,
-    :type, :question_text, :position, :answer_options, :answer_presence,
+    :type, :question_text, :section, :position, :answer_options, :answer_presence,
     :answer_minimum_length, :answer_maximum_length,
     :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to
 
@@ -56,6 +56,7 @@ class QuestionForm < BaseService
       :type => type,
       :survey => survey,
       :question_text  => question_text,
+      :section => section,
       :position => position,
       :default_text => default_text,
       :placeholder => placeholder,
@@ -74,6 +75,7 @@ class QuestionForm < BaseService
     self.type = question.type
     self.survey  = question.survey
     self.question_text   = question.question_text
+    self.section = question.section
     self.position = question.position
     self.default_text    = question.default_text
     self.placeholder     = question.placeholder

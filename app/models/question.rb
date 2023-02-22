@@ -5,8 +5,9 @@ class Question < ApplicationRecord
   has_many   :answers
 
   default_scope { order(:position) }
+  scope :by_section, ->(section) { where('section = ?', section) }
 
-  validates :survey, :question_text, :presence => true
+  validates :survey, :question_text, :section, :position, :presence => true
   validate :type_can_change
   serialize :validation_rules
 
