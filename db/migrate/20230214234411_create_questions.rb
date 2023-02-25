@@ -10,6 +10,7 @@ class CreateQuestions < ActiveRecord::Migration[7.0]
       t.string :answer_options
       t.string :validation_rules
       t.integer :section
+      t.integer :matrix_size
 
       t.timestamps
     end

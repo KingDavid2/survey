@@ -1,0 +1,13 @@
+<%= render partial: "answers/errors", locals: {answer: answer} %>
+<div class="form-group">
+  <div class="row">
+    <div class="col-2">
+      <%= answer.question.question_text.html_safe %>
+    </div>
+    <% answer.question.columns.each do | column | %>
+      <div class="col-sm">
+        <%= column.html_safe %>
+      </div>
+    <% end %>
+  </div>
+</div>

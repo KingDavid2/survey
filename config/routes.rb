@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  get '/config', to: 'surveys#index'
-  scope :config do
+  get '/admin', to: 'surveys#index'
+  scope :admin do
     devise_for :users
     resources :clients
     resources :surveys do

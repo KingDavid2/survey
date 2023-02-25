@@ -9,6 +9,8 @@ class QuestionForm < BaseService
       Questions::Select,
       Questions::Short,
       Questions::Information,
+      Questions::MatrixHeader,
+      Questions::MatrixRadio,
     ]
 
   QUESTION_TYPES = AVAILABLE_QUESTIONS.inject({}) do |result, question|
@@ -20,7 +22,7 @@ class QuestionForm < BaseService
   attr_accessor :survey, :question, :default_text, :placeholder,
     :type, :question_text, :section, :position, :answer_options, :answer_presence,
     :answer_minimum_length, :answer_maximum_length,
-    :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to
+    :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :matrix_size
 
   delegate :valid?, :errors, :to => :question
 
@@ -61,6 +63,7 @@ class QuestionForm < BaseService
       :default_text => default_text,
       :placeholder => placeholder,
       :answer_options => answer_options,
+      :matrix_size => matrix_size,
       :validation_rules => {
         :presence => answer_presence,
         :minimum  => answer_minimum_length,
@@ -80,6 +83,7 @@ class QuestionForm < BaseService
     self.default_text    = question.default_text
     self.placeholder     = question.placeholder
     self.answer_options  = question.answer_options
+    self.matrix_size  = question.matrix_size
     self.answer_presence = question.rules[:presence]
     self.answer_minimum_length = question.rules[:minimum]
     self.answer_maximum_length = question.rules[:maximum]

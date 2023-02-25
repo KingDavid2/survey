@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def render_answer_form_helper(answer, form)
-    partial = answer.question.type.to_s.split("::").last.downcase
+    partial = answer.question.type.to_s.split("::").last.underscore
     render partial: "answer_wrapper", locals: { f: form, answer: answer, partial: partial }
   end
 
