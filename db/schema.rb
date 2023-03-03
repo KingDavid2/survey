@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_050543) do
 
   create_table "attempts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "survey_id", null: false
+    t.boolean "completed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["survey_id"], name: "index_attempts_on_survey_id"

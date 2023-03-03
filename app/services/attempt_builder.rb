@@ -1,9 +1,10 @@
 class AttemptBuilder < BaseService
-  attr_accessor :user, :survey, :questions, :answers, :params, :attempt_id
+  attr_accessor :user, :survey, :questions, :answers, :params, :attempt_id, :attempt, :step, :action
 
   def initialize(params = {})
     super(params)
-    build_attempt(params[:attempt_id])
+    self.step ||= 0
+    build_attempt
   end
 
   def to_model
@@ -11,7 +12,10 @@ class AttemptBuilder < BaseService
   end
 
   def save!(options = {})
+
     params.each do |question_id, answer_attributes|
+          binding.pry
+
       answer = @attempt.answers.find { |a| a.question_id.to_s == question_id.to_s }
       next unless answer
 
@@ -36,24 +40,41 @@ class AttemptBuilder < BaseService
     save!(options)
   rescue ActiveRecord::ActiveRecordError => e
     # repopulate answers here in case of failure as they are not getting updated
-    @answers = @survey.questions.collect do |question|
+    binding.pry
+    @answers = @survey.questions.where(section: @step).collect do |question|
       @attempt.answers.find { |a| a.question_id == question.id }
     end
     false
   end
 
+  def update_attempt(attempt_id, step)
+    @attempt = Attempt.find(attempt_id)
+      @answers = @survey.questions.where(section: step).collect do |question|
+      @attempt.answers.create(question_id: question.id)
+    end
+  end
+
+  def answered_questions
+    @attempt.answers.pluck(:question_id)
+  end
+  
   private
-  def build_attempt(attempt_id)
-    if attempt_id.present?
-      @attempt = Attempt.find(attempt_id)
-      self.answers = @attempt.answers
-      self.user = @attempt.user
-      self.survey = @attempt.survey
-      self.questions = @survey.questions
-    else
-      @attempt = Attempt.new(survey: survey)
-      @answers = @survey.questions.collect do |question|
-        @attempt.answers.build(question_id: question.id)
+
+  def build_attempt
+    # if attempt_id.present?
+    #   @attempt = Attempt.find(attempt_id)
+    #   @answers = @attempt.answers
+    #   # @user = @attempt.user
+    #   # @survey = @attempt.survey
+    #   @questions = @survey.questions.where(section: step)
+    # else
+    #   @attempt = Attempt.new(survey: survey)
+    # end
+    @answers = @survey.questions.where(section: @step).collect do |question|
+      if answered_questions.include? question.id
+        @attempt.answers.find_by(question_id: question.id)
+      else
+        @attempt.answers.new(question_id: question.id)
       end
     end
   end

@@ -57,6 +57,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'pry-rails'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
@@ -81,3 +82,6 @@ gem 'friendly_id', '~> 5.4.0'
 gem 'devise', '~> 4.9.0'
 
 gem 'bootstrap', '~> 5.2.0'
+
+gem "view_component"
+

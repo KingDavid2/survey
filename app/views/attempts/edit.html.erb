@@ -1,1 +1,17 @@
-<%= render partial: 'form', locals: { submit_text: 'Update' } %>
+edit
+<h2><%= t('attempts.header') -%></h2>
+<hr/>
+
+<p><%= @survey.introduction %></p>
+
+
+<%= form_for(@attempt_builder, as: :attempt_builder, url: patch_attempt_flath_path(client: @survey.client, survey: @survey, id: @attempt_builder.attempt.id), method: :patch) do |f| %>
+  <%= hidden_field_tag :step, @step %>
+
+  <%- @attempt_builder.answers.each do |answer| %>
+    <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
+      <%= render_answer_form_helper(answer, answer_form) %>
+    <% end %>
+  <% end %>
+  <%= f.submit 'Update' %>
+<% end %>
