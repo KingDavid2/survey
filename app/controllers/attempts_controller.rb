@@ -14,12 +14,13 @@ class AttemptsController < ApplicationController
 
   def create
     @attempt_builder = AttemptBuilder.new(attempt_params)
-
+    
     if @attempt_builder.save
-      if @attempt_builder.survey.completed
+      
+      if @attempt_builder.attempt.completed
         redirect_to after_answer_path_for
       else
-        redirect_to edit_attempt_flath_path(id: @attempt_builder.attempt.id, step: 1)
+        redirect_to edit_attempt_flath_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)
       end
     else
       render :new
@@ -32,12 +33,14 @@ class AttemptsController < ApplicationController
 
   def update
     @attempt_builder = AttemptBuilder.new(attempt_params)
-    
-    binding.pry
-    
 
     if @attempt_builder.save
-      redirect_to after_answer_path_for
+      # @attempt_builder.attempt.save!
+      if @attempt_builder.attempt.completed
+        redirect_to after_answer_path_for
+      else
+        redirect_to edit_attempt_flath_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)
+      end
     else
       render :edit
     end

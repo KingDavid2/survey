@@ -12,10 +12,7 @@ class AttemptBuilder < BaseService
   end
 
   def save!(options = {})
-
     params.each do |question_id, answer_attributes|
-          binding.pry
-
       answer = @attempt.answers.find { |a| a.question_id.to_s == question_id.to_s }
       next unless answer
 
@@ -31,8 +28,7 @@ class AttemptBuilder < BaseService
         else
           text
         end
-    end
-
+    end    
     @attempt.save!
   end
 
@@ -40,19 +36,18 @@ class AttemptBuilder < BaseService
     save!(options)
   rescue ActiveRecord::ActiveRecordError => e
     # repopulate answers here in case of failure as they are not getting updated
-    binding.pry
     @answers = @survey.questions.where(section: @step).collect do |question|
       @attempt.answers.find { |a| a.question_id == question.id }
     end
     false
   end
 
-  def update_attempt(attempt_id, step)
-    @attempt = Attempt.find(attempt_id)
-      @answers = @survey.questions.where(section: step).collect do |question|
-      @attempt.answers.create(question_id: question.id)
-    end
-  end
+  # def update_attempt(attempt_id, step)
+  #   @attempt = Attempt.find(attempt_id)
+  #     @answers = @survey.questions.where(section: step).collect do |question|
+  #     @attempt.answers.create(question_id: question.id)
+  #   end
+  # end
 
   def answered_questions
     @attempt.answers.pluck(:question_id)
@@ -70,6 +65,7 @@ class AttemptBuilder < BaseService
     # else
     #   @attempt = Attempt.new(survey: survey)
     # end
+    @attempt.survey = self.survey
     @answers = @survey.questions.where(section: @step).collect do |question|
       if answered_questions.include? question.id
         @attempt.answers.find_by(question_id: question.id)
