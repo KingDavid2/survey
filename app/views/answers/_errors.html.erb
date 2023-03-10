@@ -1,7 +1,7 @@
 <%- if answer.errors.any? %>
-  <ul>
+  <div class='text-danger'>
     <%- answer.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+      <div><%= message %></div>
     <% end %>
-  </ul>
+  </div>
 <% end %>

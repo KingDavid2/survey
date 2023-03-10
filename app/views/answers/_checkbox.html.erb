@@ -1,13 +1,15 @@
-<%= render partial: "answers/errors", locals: {answer: answer} %>
+<div class='mx-4'>
+  <p>
+    <%= f.label :answer_text, render_answer_question_helper(answer) %>
+    <%= render partial: "answers/errors", locals: {answer: answer} %>
+  </p>
 
-<div class="form-group">
-<%= f.label :answer_text, render_answer_question_helper(answer) %>
-<%= f.fields_for :answer_text do |af| %>
-  <%- answer.question.options.each_with_index do |option, index| %>
-    <%= af.label index do %>
-      <%= af.check_box index, { checked: checkbox_checked?(answer, option) }, option %>
-      <%= option %>
+  <%= f.fields_for :answer_text do |af| %>
+    <%- answer.question.options.each_with_index do |option, index| %>
+      <div class="form-check mb-2">
+        <%= af.check_box index, { checked: checkbox_checked?(answer, option), class: 'form-check-input' }, option %>
+        <%= af.label index, option, class: 'form-check-label' %>
+      </div>
     <% end %>
   <% end %>
-<% end %>
 </div>

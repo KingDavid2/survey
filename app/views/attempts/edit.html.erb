@@ -1,17 +1,16 @@
-edit
-<h2><%= t('attempts.header') -%></h2>
-<hr/>
+<div class="mx-0 mx-sm-auto">
+  <%= form_for(@attempt_builder, as: :attempt_builder, url: patch_attempt_flath_path(client: @survey.client, survey: @survey, id: @attempt_builder.attempt.id), method: :patch, class: 'px-4') do |f| %>
+    <div class="card">
+      <div class="card-body">
+        <%= render 'header'%>
 
-<p><%= @survey.introduction %></p>
+        <hr>
+        <%= render partial: "inner_form", locals: { f: f } -%>
 
-
-<%= form_for(@attempt_builder, as: :attempt_builder, url: patch_attempt_flath_path(client: @survey.client, survey: @survey, id: @attempt_builder.attempt.id), method: :patch) do |f| %>
-  <%= hidden_field_tag :step, @step %>
-
-  <%- @attempt_builder.answers.each do |answer| %>
-    <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
-      <%= render_answer_form_helper(answer, answer_form) %>
-    <% end %>
+      </div>
+      <div class="card-footer text-end">
+        <%= f.submit 'Next', class: 'btn btn-primary' %>
+      </div>
+    </div>
   <% end %>
-  <%= f.submit 'Update' %>
-<% end %>
+</div>
