@@ -36,7 +36,7 @@ class AttemptsController < ApplicationController
 
     if @attempt_builder.save
       # @attempt_builder.attempt.save!
-      if @attempt_builder.attempt.completed
+      if @attempt_builder.attempt.is_completed?
         redirect_to after_answer_path_for
       else
         redirect_to edit_attempt_flath_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)

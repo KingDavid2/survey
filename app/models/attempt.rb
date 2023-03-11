@@ -6,11 +6,11 @@ class Attempt < ApplicationRecord
 
   delegate :questions, to: :survey
 
-  after_save :is_completed?
+  before_save :is_completed?
 
   def is_completed?
     if questions.count == answers.count
-      self.completed = true
+      completed = true
     else
       false
     end

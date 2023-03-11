@@ -22,7 +22,8 @@ class QuestionForm < BaseService
   attr_accessor :survey, :question, :default_text, :placeholder,
     :type, :question_text, :section, :position, :answer_options, :answer_presence,
     :answer_minimum_length, :answer_maximum_length,
-    :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :matrix_size
+    :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :matrix_size,
+    :answer_presence_on_question, :answer_presence_on_answers
 
   delegate :valid?, :errors, :to => :question
 
@@ -66,6 +67,8 @@ class QuestionForm < BaseService
       :matrix_size => matrix_size,
       :validation_rules => {
         :presence => answer_presence,
+        :presence_on_question => answer_presence_on_question,
+        :presence_on_answers => answer_presence_on_answers,
         :minimum  => answer_minimum_length,
         :maximum  => answer_maximum_length,
         :greater_than_or_equal_to => answer_greater_than_or_equal_to,
@@ -85,6 +88,8 @@ class QuestionForm < BaseService
     self.answer_options  = question.answer_options
     self.matrix_size  = question.matrix_size
     self.answer_presence = question.rules[:presence]
+    self.answer_presence_on_question = question.rules[:presence_on_question]
+    self.answer_presence_on_answers = question.rules[:presence_on_answers]
     self.answer_minimum_length = question.rules[:minimum]
     self.answer_maximum_length = question.rules[:maximum]
     self.answer_greater_than_or_equal_to = question.rules[:greater_than_or_equal_to]

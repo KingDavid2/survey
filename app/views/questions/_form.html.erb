@@ -58,6 +58,16 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :answer_presence_on_question %>
+    <%= f.text_field :answer_presence_on_question %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :answer_presence_on_answers %>
+    <%= f.text_area :answer_presence_on_answers, rows: 5 %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :answer_minimum_length %>
     <%= f.text_field :answer_minimum_length %>
   </div>

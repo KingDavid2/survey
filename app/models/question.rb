@@ -42,6 +42,19 @@ class Question < ApplicationRecord
 
       answer.validates_length_of :answer_text, min_max
     end
+
+    if rules[:presence_on_question].present? && rules[:presence_on_answers].present?
+      answers_array = rules[:presence_on_answers].split(Global.answers_delimiter)
+      question = answer.attempt.questions.find_by_position(rules[:presence_on_question])
+      # answers = answer.attempt.answers.where(answer_text: answers_array, question_id: question.id)
+      answers = answer.attempt.answers.pluck(:question_id, :answer_text).find{|a| a[0]==question.id &&  answers_array.include?(a[1]) }
+
+      if answers.present?
+        answer.validates_presence_of :answer_text
+      else
+        answer.answer_text = ''
+      end
+    end
   end
 
   def type_can_change

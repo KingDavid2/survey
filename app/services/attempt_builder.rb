@@ -28,7 +28,8 @@ class AttemptBuilder < BaseService
         else
           text
         end
-    end    
+      answer.question.validate_answer(answer)
+    end
     @attempt.save!
   end
 
