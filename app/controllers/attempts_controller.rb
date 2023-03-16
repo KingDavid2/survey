@@ -61,6 +61,7 @@ class AttemptsController < ApplicationController
 
   def set_step!
     @step = params[:step]
+    @percent = [(@step.to_f ),0].max / @survey.sections.to_f * 100
   end
 
 

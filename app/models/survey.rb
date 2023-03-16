@@ -9,4 +9,8 @@ class Survey < ApplicationRecord
   has_many  :questions
 
   validates :name, presence: true
+
+  def sections
+    questions.pluck(:section).uniq.count
+  end
 end
