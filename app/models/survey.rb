@@ -10,6 +10,9 @@ class Survey < ApplicationRecord
 
   validates :name, presence: true
 
+  has_rich_text :introduction
+  has_rich_text :conclusion
+
   def sections
     questions.pluck(:section).uniq.count
   end

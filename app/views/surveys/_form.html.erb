@@ -21,11 +21,13 @@
 
   <div class="form-group">
     <%= f.label :introduction %>
-    <%= f.text_area :introduction %>
+    <%= f.rich_text_area :introduction %>
   </div>
 
-  <%= f.label :conclusion %>
-  <%= f.text_area :conclusion %>
+  <div class="form-group">
+    <%= f.label :conclusion %>
+    <%= f.rich_text_area :conclusion %>
+  </div>
 
   <%= f.submit %>
 <% end %>
