@@ -44,10 +44,14 @@ class Question < ApplicationRecord
     end
 
     if rules[:presence_on_question].present? && rules[:presence_on_answers].present?
-      answers_array = rules[:presence_on_answers].split(Global.answers_delimiter)
+      needed_answers = rules[:presence_on_answers].split(Global.answers_delimiter)
       question = answer.attempt.questions.find_by_position(rules[:presence_on_question])
-      # answers = answer.attempt.answers.where(answer_text: answers_array, question_id: question.id)
-      answers = answer.attempt.answers.pluck(:question_id, :answer_text).find{|a| a[0]==question.id &&  answers_array.include?(a[1]) }
+      # answers = answer.attempt.answers.where(answer_text: needed_answers, question_id: question.id)
+
+      answers = answer.attempt.answers.pluck(:question_id, :answer_text).filter do |a|
+        current_answers = a[1].to_s.split(Global.answers_delimiter)
+        a[0]==question.id && needed_answers.intersection(current_answers).any?
+      end
 
       if answers.present?
         answer.validates_presence_of :answer_text
@@ -55,6 +59,25 @@ class Question < ApplicationRecord
         answer.answer_text = ''
       end
     end
+
+    if rules[:uniqueness_on_section].present?
+      # get questions in section
+      questions = answer.attempt.questions.where(section: rules[:uniqueness_on_section])
+
+      # get answers in section
+      answers = answer.attempt.answers.filter { | a | questions.ids.include? a.question_id }
+      
+      # count uniq
+      count_answers = answers.pluck(:answer_text).count(answer.answer_text)
+      if count_answers > 1
+        answer.errors.add(:answer_text, :taken)
+      end
+    end
+  end
+
+  def filter_duplicates_by_my_attribute
+    groups = answers.group_by(&:answer_text)
+    groups.select { |_, records| records.size == 1 }.values.flatten
   end
 
   def type_can_change
