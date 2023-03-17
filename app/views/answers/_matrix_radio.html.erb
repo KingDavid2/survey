@@ -2,10 +2,10 @@
 <div class="form-group">
   <div class="row">
     <div class="col-2">
-      <%= f.label :answer_text, answer.question.question_text.html_safe %>
+      <%= f.label :answer_text, answer.question.question_text %>
     </div>
     <%- answer.question.options.each_with_index do |option, index| %>
-      <div class="col-sm">
+      <div class="col text-center">
         <span class="form-group sub">
           <%= f.label "answer_text_#{index}" do %>
             <%= f.radio_button :answer_text, option, id: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}" %>

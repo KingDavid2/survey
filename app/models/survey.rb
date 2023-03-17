@@ -16,4 +16,12 @@ class Survey < ApplicationRecord
   def sections
     questions.pluck(:section).uniq.count
   end
+
+  def last_section_number
+    questions.pluck(:section).sort.last
+  end
+
+  def last_position_number
+    questions.pluck(:position).sort.last
+  end
 end

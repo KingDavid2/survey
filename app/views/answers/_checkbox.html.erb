@@ -1,9 +1,8 @@
 <div class='mx-4'>
-  <p>
+  <div class='my-3'>
     <%= f.label :answer_text, render_answer_question_helper(answer) %>
     <%= render partial: "answers/errors", locals: {answer: answer} %>
-  </p>
-
+  </div>
   <%= f.fields_for :answer_text do |af| %>
     <%- answer.question.options.each_with_index do |option, index| %>
       <div class="form-check mb-2">

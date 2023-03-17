@@ -1,7 +1,9 @@
-<div class='mx-4'>
-  <p>
-    <%= f.label :answer_text, answer.question.question_text.html_safe %>
+<div class='row mx-4 my-3'>
+  <div class='col-11'>
+    <%= answer.question.question_text %>
     <%= render partial: "answers/errors", locals: {answer: answer} %>
+  </div>
+  <div class='col-1'>
     <%= f.select :answer_text, answer.question.options, include_blank: true %>
-  </p>
+  </div>
 </div>

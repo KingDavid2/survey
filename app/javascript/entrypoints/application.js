@@ -6,7 +6,7 @@ import "@rails/actiontext";
 //
 //    <%= vite_client_tag %>
 //    <%= vite_javascript_tag 'application' %>
-console.log("Vite ⚡️ Rails");
+// console.log("Vite ⚡️ Rails");
 
 // If using a TypeScript entrypoint file:
 //     <%= vite_typescript_tag 'application' %>
@@ -14,10 +14,10 @@ console.log("Vite ⚡️ Rails");
 // If you want to use .jsx or .tsx, add the extension:
 //     <%= vite_javascript_tag 'application.jsx' %>
 
-console.log(
-  "Visit the guide for more information: ",
-  "https://vite-ruby.netlify.app/guide/rails"
-);
+// console.log(
+//   "Visit the guide for more information: ",
+//   "https://vite-ruby.netlify.app/guide/rails"
+// );
 
 // Example: Load Rails libraries in Vite.
 //
@@ -34,10 +34,10 @@ console.log(
 // import '~/index.css'
 
 // Create Vue App
-import { createApp } from "vue";
+// import { createApp } from "vue";
 
 // Import App Component
-import App from "../components/App.vue";
+// import App from "../components/App.vue";
 
 // Create Vue App
-const app = createApp(App).mount("#app");
+// const app = createApp(App).mount("#app");

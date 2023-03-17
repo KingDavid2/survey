@@ -93,7 +93,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_204756) do
   create_table "questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "survey_id", null: false
     t.string "type"
-    t.string "question_text"
     t.string "default_text"
     t.string "placeholder"
     t.integer "position"

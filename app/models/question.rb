@@ -10,6 +10,7 @@ class Question < ApplicationRecord
   validates :survey, :question_text, :section, :position, :presence => true
   validate :type_can_change
   serialize :validation_rules
+  has_rich_text :question_text
 
   def self.inherited(child)
     child.instance_eval do

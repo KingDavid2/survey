@@ -1,11 +1,12 @@
 <tr id="question_<%= question.id %>">
   <td><%= question.section %></td>
   <td><%= question.position %></td>
+  <td><%= question.type %></td>
   <td><%= question.question_text %></td>
   <td>
     <ul class="horizontal-list">
       <li><%= link_to "Edit", [:edit, question.survey, question] %></li>
-      <li><%= link_to "Delete", [question.survey, question], method: :delete %></li>
+      <li><%= button_to "Delete", survey_question_path(question.survey, question) %></li>
     </ul>
   </td>
 </tr>

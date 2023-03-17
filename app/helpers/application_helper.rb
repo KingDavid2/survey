@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def render_answer_question_helper(answer)
-    "#{answer.question.position}. #{answer.question.question_text}".html_safe
+    "#{answer.question.question_text}".html_safe
   end
 
   def render_answer_form_helper(answer, form)
