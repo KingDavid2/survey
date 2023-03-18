@@ -9,7 +9,6 @@
         <span class="form-group sub">
           <%= f.label "answer_text_#{index}" do %>
             <%= f.radio_button :answer_text, option, id: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}" %>
-            <%= option %>
           <% end %>
         </span>
       </div>
