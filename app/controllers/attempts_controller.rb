@@ -20,7 +20,7 @@ class AttemptsController < ApplicationController
       if @attempt_builder.attempt.completed
         redirect_to after_answer_path_for
       else
-        redirect_to edit_attempt_flath_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)
+        redirect_to edit_attempt_flat_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)
       end
     else
       render :new
@@ -39,7 +39,7 @@ class AttemptsController < ApplicationController
       if @attempt_builder.attempt.is_completed?
         redirect_to after_answer_path_for
       else
-        redirect_to edit_attempt_flath_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)
+        redirect_to edit_attempt_flat_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)
       end
     else
       render :edit
