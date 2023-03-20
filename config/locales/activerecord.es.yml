@@ -1,0 +1,7 @@
+---
+es:
+  activerecord:
+    attributes:
+      answer:
+        answer_text:
+          'La respuesta'
