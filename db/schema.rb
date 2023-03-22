@@ -111,8 +111,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_204756) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "client_id", null: false
+    t.index ["client_id", "slug"], name: "index_surveys_on_client_id_and_slug", unique: true
     t.index ["client_id"], name: "index_surveys_on_client_id"
-    t.index ["slug"], name: "index_surveys_on_slug", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
