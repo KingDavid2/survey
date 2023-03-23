@@ -85,3 +85,8 @@ gem 'bootstrap', '~> 5.2.0'
 
 gem "view_component"
 
+gem "rubocop"
+
+gem "groupdate"
+
+gem "chartkick"

@@ -1,6 +1,6 @@
 FROM ruby:3.1.0-alpine
 
-RUN apk add --no-cache build-base bash nodejs postgresql-dev yarn tzdata shared-mime-info
+RUN apk add --no-cache build-base bash nodejs postgresql-dev yarn tzdata shared-mime-info less
 
 WORKDIR /app
 

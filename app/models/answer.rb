@@ -13,4 +13,12 @@ class Answer < ApplicationRecord
     return false unless question.present?
     question.validate_answer(self)
   end
+
+  def partial_name
+    question.type.to_s.split("::").last.underscore
+  end
+
+  def self.group_by_question_and_survey(question, survey)
+    joins(attempt: :survey).where(question: question, survey: {id: survey.id} ).group(:answer_text).count
+  end
 end

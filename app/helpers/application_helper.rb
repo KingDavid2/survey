@@ -5,8 +5,11 @@ module ApplicationHelper
   end
 
   def render_answer_form_helper(answer, form)
-    partial = answer.question.type.to_s.split("::").last.underscore
-    render partial: "answer_wrapper", locals: { f: form, answer: answer, partial: partial }
+    render partial: "answer_wrapper", locals: { f: form, answer: answer, partial: answer.partial_name }
+  end
+
+  def render_question_results(question)
+    render partial: "question_wrapper", locals: { question: question, partial: question.partial_name }
   end
 
   def checkbox_checked?(answer, option)

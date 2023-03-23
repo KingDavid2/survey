@@ -6,6 +6,8 @@ class Survey < ApplicationRecord
 
   belongs_to :client
   has_many  :attempts
+  has_many :answers, through: :attempts
+
   has_many  :questions
 
   validates :name, presence: true

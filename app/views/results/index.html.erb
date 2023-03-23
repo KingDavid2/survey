@@ -1,0 +1,17 @@
+<h1>
+  Results
+</h1>
+<div class='row'>
+  <% @surveys.each do | survey | %>
+    <div class='col-3'>
+      <div class="card text-center">
+      <h5 class="card-header"><%= survey.name %></h5>
+      <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text"><%= survey.attempts.count %></p>
+          <%= link_to 'Resultados', client_results_survey_path(@client, survey), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,4 @@
+<div class='mx-4'>
+  <h3> <%= question.question_text %> </h3>
+  <%= pie_chart Answer.group_by_question_and_survey(question, question.survey), adapter: "google" %>
+</div>

@@ -3,16 +3,19 @@ class Attempt < ApplicationRecord
 
   belongs_to :survey
   has_many :answers, inverse_of: :attempt, autosave: true
+  scope :completed, -> { where(completed: true) }
 
   delegate :questions, to: :survey
 
-  before_save :is_completed?
+  after_save :is_completed?
 
   def is_completed?
     if questions.count == answers.count
-      completed = true
+      self.update_column(:completed, true)
+      true
     else
       false
     end
   end
 end
+

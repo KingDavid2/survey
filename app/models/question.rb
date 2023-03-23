@@ -86,4 +86,8 @@ class Question < ApplicationRecord
       errors.add(:type, "cannot change after answers have been added")
     end
   end
+
+  def partial_name
+    type.to_s.split("::").last.underscore
+  end
 end
