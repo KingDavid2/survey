@@ -18,7 +18,20 @@ class Answer < ApplicationRecord
     question.type.to_s.split("::").last.underscore
   end
 
+  def self.all_answer_texts(question, survey)
+    joins(attempt: :survey).where(question: question, survey: {id: survey.id} ).pluck(:answer_text).join(' ')
+  end
+
   def self.group_by_question_and_survey(question, survey)
-    joins(attempt: :survey).where(question: question, survey: {id: survey.id} ).group(:answer_text).count
+    hash = joins(attempt: :survey).where(question: question, survey: {id: survey.id} ).group(:answer_text).count
+    fill_missing_keys(hash, question)
+  end
+
+  def self.fill_missing_keys(hash, question)
+    new_hash = {}
+    question.answers_array.each do |key|
+      new_hash[key] = hash[key] || 0
+    end
+    new_hash
   end
 end

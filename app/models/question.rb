@@ -90,4 +90,16 @@ class Question < ApplicationRecord
   def partial_name
     type.to_s.split("::").last.underscore
   end
+
+  def question_text_with_section
+    section.to_s + '. ' + question_text.body.html_safe
+  end
+
+  def answers_array
+    answer_options.split(Global.answers_delimiter)
+  end
+
+  def plain_question_text
+    question_text.body.to_plain_text.squish
+  end
 end

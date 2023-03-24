@@ -11,6 +11,7 @@ class QuestionForm < BaseService
       Questions::Information,
       Questions::MatrixHeader,
       Questions::MatrixRadio,
+      Questions::MatrixRating,
     ]
 
   QUESTION_TYPES = AVAILABLE_QUESTIONS.inject({}) do |result, question|

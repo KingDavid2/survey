@@ -1,4 +1,5 @@
 
 
-
-  <%= render_question_results(@survey.questions.first) %>
+<% @survey.questions.each do | question | %>
+  <%= render_question_results(question) %>
+<% end %>

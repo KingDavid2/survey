@@ -1,7 +1,7 @@
 class AttemptsController < ApplicationController
+  before_action :find_client!
   before_action :find_survey!
   before_action :find_attempt!
-  before_action :find_client!
   before_action :set_step!
 
   def show
@@ -48,11 +48,11 @@ class AttemptsController < ApplicationController
 
   private
   def find_client!
-    @client = @survey.client
+    @client = Client.find(params[:client_id])
   end
 
   def find_survey!
-    @survey = Survey.find(params[:survey_id])
+    @survey = @client.surveys.find(params[:survey_id])
   end
 
   def find_attempt!
