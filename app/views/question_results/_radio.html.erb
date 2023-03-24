@@ -1,4 +1,4 @@
 <div class='mx-4'>
-  <h5> <%= question.question_text_with_section.html_safe %> </h5>
+  <h5> <%= question.question_text.body.html_safe %> </h5>
   <%= pie_chart Answer.group_by_question_and_survey(question, question.survey), download: true, adapter: "google" %>
 </div>

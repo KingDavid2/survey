@@ -1,4 +1,4 @@
 <div class='mx-4'>
-  <h5> <%= question.question_text_with_section.html_safe %> </h5>
+  <h5> <%= question.question_text.body.html_safe %> </h5>
   <%= Answer.all_answer_texts(question, question.survey) %>
 </div>
