@@ -8,8 +8,8 @@ module ApplicationHelper
     render partial: "answer_wrapper", locals: { f: form, answer: answer, partial: answer.partial_name }
   end
 
-  def render_question_results(question)
-    render partial: "question_wrapper", locals: { question: question, partial: question.partial_name }
+  def render_question_results(result)
+    render partial: "question_wrapper", locals: { result: result }
   end
 
   def checkbox_checked?(answer, option)

@@ -99,7 +99,7 @@ class Question < ApplicationRecord
     answer_options.split(Global.answers_delimiter)
   end
 
-  def plain_question_text
+  def question_text_plain
     question_text.body.to_plain_text.squish
   end
 end

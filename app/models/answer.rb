@@ -19,7 +19,7 @@ class Answer < ApplicationRecord
   end
 
   def self.all_answer_texts(question, survey)
-    joins(attempt: :survey).where(question: question, survey: {id: survey.id} ).pluck(:answer_text).join(' ')
+    joins(attempt: :survey).where(question: question, survey: {id: survey.id} ).pluck(:answer_text).join(' / ')
   end
 
   def self.group_by_question_and_survey(question, survey)

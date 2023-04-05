@@ -1,5 +1,15 @@
+<h1>Results</h1>
 
+<%= link_to "Descargar resupestas", params.permit!.merge(format: :csv) %>
 
-<% @survey.questions.each do | question | %>
-  <%= render_question_results(question) %>
+<% @survey_results.each do | section, results | %>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <%= section  %>.
+      <% results.each do | result | %>
+        <%= render_question_results(result) %>
+      <% end %>
+    </div>
+  </div>  
 <% end %>

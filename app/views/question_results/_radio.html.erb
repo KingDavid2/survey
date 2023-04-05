@@ -1,4 +1,5 @@
-<div class='mx-4'>
-  <h5> <%= question.question_text.body.html_safe %> </h5>
-  <%= pie_chart Answer.group_by_question_and_survey(question, question.survey), download: true, adapter: "google" %>
+<div class='mx-4 results'>
+  <%= render "question_results/results_header", result: result -%>
+  <%= render "question_results/average", result: result -%>
+  <%= pie_chart result.results, download: true, adapter: "google" %>
 </div>

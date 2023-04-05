@@ -1,4 +1,8 @@
 <div class='mx-4'>
-  <h5> <%= question.question_text.body.html_safe %> </h5>
-  <%= Answer.all_answer_texts(question, question.survey) %>
+  <%= render "question_results/results_header", result: result -%>
+    <ol>
+      <%- result.results.compact.each do |answer| %>
+        <li><%= answer %></li>
+      <% end %>
+    </ol>
 </div>

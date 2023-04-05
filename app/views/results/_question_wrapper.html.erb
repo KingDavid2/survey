@@ -1,3 +1,3 @@
-  <div class='<%= partial -%>_question' >
-    <%= render partial: "question_results/#{partial}", locals: { question: question } -%>
+  <div class='<%= result.question.partial_name -%>_question' >
+    <%= render partial: "question_results/#{result.question.partial_name}", locals: { result: result } -%>
   </div>
