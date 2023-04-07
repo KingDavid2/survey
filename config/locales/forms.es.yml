@@ -10,3 +10,5 @@ es:
     new: "Nuevo"
     destroy: "Eliminar"
     finish: "Finalizar"
+    over: "Esta encuesta ha terminado. Muchas gracias por tu participación"
+    begin: "Comenzar"

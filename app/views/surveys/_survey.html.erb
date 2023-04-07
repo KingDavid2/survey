@@ -6,10 +6,14 @@
     <%= link_to survey.name, survey_questions_path(survey) %>
   </td>
   <td>
+    <%= survey.active %>
+  </td>
+  <td>
     <ul class="horizontal-list">
       <li><%= link_to "Answer Questions", new_client_survey_attempt_path(survey.client, survey) %></li>
       <li><%= link_to "Edit", edit_survey_path(survey) %></li>
       <li><%= link_to "Delete", survey, method: :delete %></li>
+      <li><%= button_to survey.active ? "Deactivate" : "Activate", toggle_active_survey_path(survey), method: :patch %></li>
     </ul>
   </td>
 </tr>

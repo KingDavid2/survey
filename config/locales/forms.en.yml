@@ -10,3 +10,5 @@ en:
     new: "New"
     destroy: "Destroy"
     finish: "Finish"
+    over: "This survey has ended. Thank you for your participation"
+    begin: "Begin"

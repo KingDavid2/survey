@@ -1,2 +1,2 @@
 <%= @survey.conclusion %>
-<%= link_to 'comenzar', new_attempt_flat_path(@survey.client, @survey) %>
+<%= link_to I18n.t('form.begin'), new_attempt_flat_path(@survey.client, @survey) %>

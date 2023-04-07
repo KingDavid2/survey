@@ -7,10 +7,12 @@ Rails.application.routes.draw do
     resources :surveys do
       resources :questions
       resources :attempts
+      patch :toggle_active, on: :member
     end
   end
 
   root to: "pages#index"
+  get 'over', to: 'attempts#over'
 
   get ':client_id/results', to: 'results#index', as: :client_results
   get ':client_id/results/:survey_id', to: 'results#show', as: :client_results_survey

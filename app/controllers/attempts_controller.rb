@@ -1,16 +1,20 @@
 class AttemptsController < ApplicationController
-  before_action :find_client!
-  before_action :find_survey!
-  before_action :find_attempt!
-  before_action :set_step!
-  before_action :set_submit_text!
+  before_action :find_client!, except: :over
+  before_action :find_survey!, except: :over
+  before_action :find_attempt!, except: :over
+  before_action :set_step!, except: :over
+  before_action :set_submit_text!, except: :over
 
   def show
     # @attempt = @survey.attempts.find_by(attempt_params_for_find)
   end
 
   def new
-    @attempt_builder = AttemptBuilder.new(attempt_params)
+    if @survey.active?
+      @attempt_builder = AttemptBuilder.new(attempt_params)
+    else
+      redirect_to over_path
+    end
   end
 
   def create
@@ -46,6 +50,8 @@ class AttemptsController < ApplicationController
       render :edit
     end
   end
+
+  def over; end
 
   private
   def find_client!

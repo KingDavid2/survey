@@ -67,6 +67,12 @@
       end
     end
 
+    def toggle_active
+      @survey = Survey.find(params[:id])
+      @survey.update(active: !@survey.active)
+      redirect_to surveys_path
+    end
+
     private
 
     def survey_params

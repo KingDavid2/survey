@@ -35,7 +35,7 @@ client = Client.create name: 'Chedraui'
 # survey = Survey.first
 survey = Survey.create name: 'Ong', introduction: "<div class=\"trix-content\">\n  <div>\n<strong>Estimada ONG<br></strong><br>\n</div><div>En Grupo Chedraui nos interesa mejorar de manera continua y asegurar la adecuada ejecución de nuestras iniciativas en temas de sustentabilidad. Por ello, agradeceremos tu participación en esta encuesta y nos compartas tu opinión sobre la importancia que algunos temas tienen para ti.</div><div>\n<br>Tus respuestas son importantes para identificar tus intereses y de qué manera te sientes impactado por alguno de estos temas, cómo podemos mejorar los impactos negativos, y los positivos y fortalecer nuestra comunicación.</div>\n</div>\n",
                        conclusion: "<div class=\"trix-content\">\n  <div><strong>Hemos finalizado la encuesta. ¡Muchas gracias por tu participación!</strong></div>\n</div>\n",
-                       client: client
+                       client: client, active: true
 
 attempt = survey.attempts.create completed:true
 
