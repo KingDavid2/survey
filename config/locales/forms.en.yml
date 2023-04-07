@@ -1,0 +1,12 @@
+---
+en:
+  form:
+    next: "Next"
+    previous: "Previous"
+    save: "Save"
+    cancel: "Cancel"
+    delete: "Delete"
+    edit: "Edit"
+    new: "New"
+    destroy: "Destroy"
+    finish: "Finish"

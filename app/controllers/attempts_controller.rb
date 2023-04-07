@@ -3,6 +3,7 @@ class AttemptsController < ApplicationController
   before_action :find_survey!
   before_action :find_attempt!
   before_action :set_step!
+  before_action :set_submit_text!
 
   def show
     # @attempt = @survey.attempts.find_by(attempt_params_for_find)
@@ -64,7 +65,6 @@ class AttemptsController < ApplicationController
     @percent = [(@step.to_f ),0].max / @survey.sections.to_f * 100
   end
 
-
   def attempt_params
     answer_params = { params: (params[:attempt_builder] || {}) }
     answer_params.merge(survey: @survey, attempt: @attempt, attempt_id: params[:id], step: @step)
@@ -96,5 +96,9 @@ class AttemptsController < ApplicationController
   # def current_scoped
   #   send 'current_' + rapidfire_scoped.to_s
   # end
+
+  def set_submit_text!
+    @submit_text = @survey.sections == @step.to_i ? I18n.t('form.finish') : I18n.t('form.next')
+  end
 end
 
