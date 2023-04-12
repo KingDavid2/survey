@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 
   get '/admin', to: 'surveys#index'
   scope :admin do
-    devise_for :users
+  devise_for :users, skip: [:registrations]
+
     resources :clients
     resources :surveys do
       resources :questions
