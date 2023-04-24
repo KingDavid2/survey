@@ -1,4 +1,4 @@
-<%= hidden_field_tag :step, @step %>
+<%= hidden_field_tag :step, step %>
 
 <%- @attempt_builder.answers.each do |answer| %>
   <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>

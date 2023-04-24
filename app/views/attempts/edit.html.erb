@@ -6,10 +6,8 @@
     <div class="card">
       <div class="card-body">
         <%= render 'header'%>
-
         <hr>
-        <%= @step %>.
-        <%= render partial: "inner_form", locals: { f: f } -%>
+        <%= render partial: "inner_form", locals: { f: f, step: @step } -%>
 
       </div>
       <div class="card-footer text-end">

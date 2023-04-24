@@ -2,7 +2,7 @@
 <div class="form-group">
   <div class="row">
     <div class="col-2">
-      <%= f.label :answer_text, answer.question.question_text %>
+      <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
     </div>
     <%- answer.question.options.each_with_index do |option, index| %>
       <div class="col text-center">

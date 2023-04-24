@@ -1,6 +1,6 @@
 <div class='mx-4'>
   <div class='my-3'>
-    <%= f.label :answer_text, answer.question.question_text %>
+    <%= f.label :answer_text, answer.question.question_text_with_section_if_first.html_safe %>
     <%= render partial: "answers/errors", locals: {answer: answer} %>
   </div>
 

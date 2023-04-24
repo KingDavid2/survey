@@ -92,7 +92,18 @@ class Question < ApplicationRecord
   end
 
   def question_text_with_section
-    section.to_s + '. ' + question_text.body.html_safe
+    text_body = Nokogiri::HTML.parse(question_text.to_s)
+    inner_div = text_body.at_css('.trix-content div')
+    inner_div.content = section.to_s + ". " + inner_div.content
+    ActionText::Content.new(text_body.to_html)
+  end
+
+  def question_text_with_section_if_first
+    if position == survey.questions.by_section(section).pluck(:position).min
+      question_text_with_section
+    else
+      question_text.body
+    end
   end
 
   def answers_array

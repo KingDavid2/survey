@@ -1,7 +1,7 @@
 <div class='mx-4'>
   <%= render partial: "answers/errors", locals: {answer: answer} %>
   <div class="form-group">
-    <%= f.label :answer_text, answer.question.question_text %>
-    <%= f.text_field :answer_text, value: answer.answer_text || answer.question.default_text, placeholder: answer.question.placeholder %>
+    <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
+    <%= f.text_area :answer_text, value: answer.answer_text || answer.question.default_text, placeholder: answer.question.placeholder, maxlength: 160, rows: 1, cols: 20%>
   </div>
 </div>

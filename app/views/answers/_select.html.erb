@@ -1,6 +1,6 @@
 <div class='row mx-4 my-3'>
   <div class='col-11'>
-    <%= answer.question.question_text %>
+    <%= answer.question.question_text_with_section_if_first %>
     <%= render partial: "answers/errors", locals: {answer: answer} %>
   </div>
   <div class='col-1'>
