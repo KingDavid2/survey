@@ -18,6 +18,10 @@ module ApplicationHelper
     answers.include?(option)
   end
 
+  def short_checkbox_checked?(answer)    
+    answer.answer_text.present?
+  end
+
   def filter_link(question_id, option)
     question_id = question_id.to_s
     option = option.to_s

@@ -2,6 +2,7 @@ class QuestionForm < BaseService
   AVAILABLE_QUESTIONS =
     [
       Questions::Checkbox,
+      Questions::CheckboxShort,
       Questions::Date,
       Questions::Long,
       Questions::Numeric,
@@ -24,7 +25,8 @@ class QuestionForm < BaseService
     :type, :question_text, :section, :position, :answer_options, :answer_presence,
     :answer_minimum_length, :answer_maximum_length,
     :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :matrix_size,
-    :answer_presence_on_question, :answer_presence_on_answers, :answer_uniqueness_on_section
+    :answer_presence_on_question, :answer_presence_on_answers, :answer_uniqueness_on_section,
+    :answer_presence_on_section_if_checked, :answer_checked_and_not_required_short
 
   delegate :valid?, :errors, :to => :question
 
@@ -71,6 +73,8 @@ class QuestionForm < BaseService
         :presence_on_question => answer_presence_on_question,
         :presence_on_answers => answer_presence_on_answers,
         :uniqueness_on_section => answer_uniqueness_on_section,
+        :presence_on_section => answer_presence_on_section_if_checked,
+        :check_and_not_required_short => answer_checked_and_not_required_short,
         :minimum  => answer_minimum_length,
         :maximum  => answer_maximum_length,
         :greater_than_or_equal_to => answer_greater_than_or_equal_to,
@@ -93,6 +97,8 @@ class QuestionForm < BaseService
     self.answer_presence_on_question = question.rules[:presence_on_question]
     self.answer_presence_on_answers = question.rules[:presence_on_answers]
     self.answer_uniqueness_on_section = question.rules[:uniqueness_on_section]
+    self.answer_presence_on_section_if_checked = question.rules[:presence_on_section]
+    self.answer_checked_and_not_required_short = question.rules[:check_and_not_required_short]
     self.answer_minimum_length = question.rules[:minimum]
     self.answer_maximum_length = question.rules[:maximum]
     self.answer_greater_than_or_equal_to = question.rules[:greater_than_or_equal_to]

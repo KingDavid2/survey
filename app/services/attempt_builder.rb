@@ -22,13 +22,17 @@ class AttemptBuilder < BaseService
       # strings. we will store answers as one big string separated
       # by delimiter.
       text = text.values if text.is_a?(ActionController::Parameters)
-      answer.answer_text =
-        if text.is_a?(Array)
-          strip_checkbox_answers(text).join(Global.answers_delimiter)
-        else
-          text
-        end
+
+      if text.is_a?(Array)
+        answer.answer_text = strip_checkbox_answers(text).join(Global.answers_delimiter)
+      elsif answer.question.class == Questions::CheckboxShort && answer.answer_text == '0'
+        answer.answer_text = nil
+      else
+        answer.answer_text = text
+      end
       answer.question.validate_answer(answer)
+
+      # answer.save!
     end
     @attempt.save!
   end

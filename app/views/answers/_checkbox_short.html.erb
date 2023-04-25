@@ -1,0 +1,80 @@
+<div class='mx-4'>
+  <%= render partial: "answers/errors", locals: {answer: answer} %>
+  <div class="form-group">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-6">
+          <%= f.check_box :answer_text_check, { checked: short_checkbox_checked?(answer), class: "form-check-input p-1 #{answer.question.rules[:check_and_not_required_short] == '1' ? 'not-required-check' : 'opciones' }" }, nil %>
+          <%= f.label :answer_text_check, answer.question.question_text_with_section_if_first, class: 'mx-1' %>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <%= f.text_area :answer_text, value: answer.answer_text || answer.question.default_text, placeholder: answer.question.placeholder, maxlength: 160, rows: 1, cols: 20, class: "texts #{answer.question.rules[:check_and_not_required_short] == '1' ? 'not-required-text d-none' : '' }" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var opciones = document.querySelectorAll('.opciones');
+  var noConozco = document.querySelector('.not-required-check');
+  var texts = document.querySelectorAll('.texts');
+
+  opciones.forEach(el => {el.addEventListener('change', event => {
+    opcionClick(el)
+  }
+  )});
+
+  function opcionClick(el){
+    text = el.parentElement.nextElementSibling.firstElementChild
+    if(el.checked == true){
+      text.removeAttribute('disabled')
+      text.value = ''
+    }
+    else {
+      text.setAttribute('disabled', 'disabled')
+      text.value = null
+    }
+  }
+
+  function disableTextxs(){
+    texts.forEach(el => {
+      if(el.value == '') {
+        el.setAttribute('disabled', 'disabled')
+      }
+    })
+  }
+
+  function disableCheckboxs() {
+    if(noConozco.checked == true){
+      opciones.forEach(el => {
+        el.setAttribute('disabled', 'disabled')
+        el.checked = false
+        opcionClick(el)
+      })
+    }
+    else{
+      opciones.forEach(el => {
+        el.removeAttribute('disabled')
+      })
+    }
+  }
+
+  noConozco.addEventListener('change', event => {
+    disableCheckboxs()
+    text = noConozco.parentElement.nextElementSibling.firstElementChild
+    if(noConozco.checked == true){
+      text.removeAttribute('disabled')
+      text.setAttribute('readonly', 'readonly')
+      text.value = 'No conozco'
+    }
+    else {
+      text.setAttribute('disabled', 'disabled')
+      text.value = null
+    }
+  })
+
+  disableTextxs()
+
+</script>

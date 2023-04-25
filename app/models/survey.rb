@@ -22,11 +22,11 @@ class Survey < ApplicationRecord
   end
 
   def last_section_number
-    questions.pluck(:section).sort.last
+    questions.pluck(:section).sort.last || 1
   end
 
   def last_position_number
-    questions.pluck(:position).sort.last
+    questions.pluck(:position).sort.last || 0
   end
 
   # def self.csv_user_attributes=(attributes)

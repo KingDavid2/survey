@@ -1,0 +1,8 @@
+<div class='mx-4'>
+  <%= render "question_results/results_header", result: result -%>
+    <ol>
+      <%- result.results.compact.each do |answer| %>
+        <li><%= answer %></li>
+      <% end %>
+    </ol>
+</div>
