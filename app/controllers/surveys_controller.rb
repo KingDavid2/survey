@@ -1,16 +1,21 @@
   class SurveysController < ApplicationController
+    include Pundit
     before_action :authenticate_user!
+    after_action :verify_authorized
 
     def index
       @surveys = Survey.all
+      authorize(@surveys)
     end
 
     def new
       @survey = Survey.new
+      authorize(@survey)
     end
 
     def create
       @survey = Survey.new(survey_params)
+      authorize(@survey)
 
       if @survey.save
         respond_to do |format|
@@ -27,10 +32,14 @@
 
     def edit
       @survey = Survey.find(params[:id])
+      authorize(@survey)
+
     end
 
     def update
       @survey = Survey.find(params[:id])
+      authorize(@survey)
+
       if @survey.update(survey_params)
         respond_to do |format|
           format.html { redirect_to surveys_path }
@@ -46,6 +55,8 @@
 
     def destroy
       @survey = Survey.find(params[:id])
+      authorize(@survey)
+
       @survey.destroy
 
       respond_to do |format|
@@ -56,6 +67,8 @@
 
     def results
       @survey = Survey.find(params[:id])
+      authorize(@survey)
+
       @survey_results =
         SurveyResults.new(survey: @survey).extract(filter_params)
 
@@ -69,6 +82,8 @@
 
     def toggle_active
       @survey = Survey.find(params[:id])
+      authorize(@survey)
+
       @survey.update(active: !@survey.active)
       redirect_to surveys_path
     end

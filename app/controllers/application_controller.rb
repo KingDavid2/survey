@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
     locale = params[:locale] || session[:locale] || I18n.default_locale
     I18n.with_locale(locale, &action)
   end
+
+  rescue_from Pundit::NotAuthorizedError do
+    redirect_to root_url, alert: 'No estas autorizado'
+  end
 end

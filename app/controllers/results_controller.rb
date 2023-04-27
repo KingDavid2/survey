@@ -3,7 +3,6 @@ class ResultsController < ApplicationController
   before_action :find_surveys!
   before_action :find_survey!, only: :show
 
-
   def index
   end
 
