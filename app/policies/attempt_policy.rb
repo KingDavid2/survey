@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Attempt < ApplicationPolicy
+class AttemptPolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
