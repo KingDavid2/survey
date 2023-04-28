@@ -9,11 +9,12 @@ class SurveyResults < BaseService
   # 4. else return an array of all the answers given
   def extract(filter_params = {}, by_section = false)
     results = @survey.questions.collect do |question|
+      answers = question.answers.completed_attempts.where(*filter(filter_params)).pluck(:answer_text)
       results =
         case question
         when Questions::Select, Questions::Radio, Questions::Checkbox,
           Questions::MatrixRating, Questions::MatrixRating
-          answers = question.answers.where(*filter(filter_params)).map(&:answer_text).map do |text|
+          answers = answers.map do |text|
             text.to_s.split(Global.answers_delimiter)
           end.flatten
 
@@ -23,7 +24,7 @@ class SurveyResults < BaseService
           answers.inject(count_hash) { |total, e| total[e] += 1; total }
         when Questions::Short, Questions::Date,
           Questions::Long, Questions::Numeric
-          question.answers.where(*filter(filter_params)).pluck(:answer_text)
+          answers
         end
 
       average = set_result_average(results)
@@ -32,6 +33,7 @@ class SurveyResults < BaseService
     end
 
     return group_by_section(results) if by_section
+
     results
   end
 

@@ -8,7 +8,7 @@
       <h5 class="card-header"><%= survey.name %></h5>
       <div class="card-body">
           <h5 class="card-title"></h5>
-          <p class="card-text"><%= survey.attempts.count %></p>
+          <p class="card-text"><%= survey.attempts.completed_count %></p>
           <%= link_to 'Resultados', client_results_survey_path(@client, survey), class: 'btn btn-primary' %>
         </div>
       </div>
