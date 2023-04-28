@@ -2,10 +2,10 @@
   <%= t('questions.header') -%>
 </h2>
 <h3>
-  <%= link_to t('questions.new'), new_survey_question_path(@survey) %>
+  <%= link_to t('questions.new'), new_client_survey_question_path(@survey.client, @survey) %>
 </h3>
 <h4>
-  <%= link_to t('questions.back'), surveys_path(@survey) %>
+  <%= link_to t('questions.back'), client_surveys_path(@survey.client, @survey) %>
 </h4>
 <hr/>
 

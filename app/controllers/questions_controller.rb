@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_client!
   before_action :find_survey!
   before_action :find_question!, :only => [:edit, :update, :destroy]
 
@@ -8,11 +9,11 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question_form = QuestionForm.new(:survey => @survey)
+    @question_form = QuestionForm.new(client: @client, survey: @survey)
   end
 
   def create
-    form_params = question_params.merge(:survey => @survey)
+    form_params = question_params.merge(client: @client, survey: @survey)
 
     save_and_redirect(form_params, :new)
   end
@@ -53,8 +54,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def find_client!
+    @client = Client.find(params[:client_id])
+  end
+
   def find_survey!
-    @survey = Survey.find(params[:survey_id])
+    if @client.present?
+      @survey = @client.surveys.find(params[:survey_id])
+    else
+      @survey = Survey.find(params[:survey_id])
+    end
   end
 
   def find_question!
@@ -62,7 +71,7 @@ class QuestionsController < ApplicationController
   end
 
   def index_location
-    survey_questions_url(@survey)
+    client_survey_questions_url(@client, @survey)
   end
 
   def question_params

@@ -21,7 +21,7 @@ class QuestionForm < BaseService
     result
   end
 
-  attr_accessor :survey, :question, :default_text, :placeholder,
+  attr_accessor :client, :survey, :question, :default_text, :placeholder,
     :type, :question_text, :section, :position, :answer_options, :answer_presence,
     :answer_minimum_length, :answer_maximum_length,
     :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :matrix_size,
