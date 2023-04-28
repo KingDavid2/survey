@@ -106,6 +106,14 @@ class Question < ApplicationRecord
     end
   end
 
+  def last_question_on_section
+    survey.questions.by_section(self.section).last
+  end
+
+  def last_question_on_section?
+    last_question_on_section == self
+  end
+
   def answers_array
     answer_options.split(Global.answers_delimiter)
   end

@@ -16,65 +16,67 @@
   </div>
 </div>
 
-<script>
-  var opciones = document.querySelectorAll('.opciones');
-  var noConozco = document.querySelector('.not-required-check');
-  var texts = document.querySelectorAll('.texts');
+<% if answer.question.last_question_on_section? %>
+  <script>
+    var opciones = document.querySelectorAll('.opciones');
+    var noConozco = document.querySelector('.not-required-check');
+    var texts = document.querySelectorAll('.texts');
 
-  opciones.forEach(el => {el.addEventListener('change', event => {
-    opcionClick(el)
-  }
-  )});
-
-  function opcionClick(el){
-    text = el.parentElement.nextElementSibling.firstElementChild
-    if(el.checked == true){
-      text.removeAttribute('disabled')
-      text.value = ''
+    opciones.forEach(el => {el.addEventListener('change', event => {
+      opcionClick(el)
     }
-    else {
-      text.setAttribute('disabled', 'disabled')
-      text.value = null
-    }
-  }
+    )});
 
-  function disableTextxs(){
-    texts.forEach(el => {
-      if(el.value == '') {
-        el.setAttribute('disabled', 'disabled')
+    function opcionClick(el){
+      text = el.parentElement.nextElementSibling.firstElementChild
+      if(el.checked == true){
+        text.removeAttribute('disabled')
+        text.value = ''
+      }
+      else {
+        text.setAttribute('disabled', 'disabled')
+        text.value = null
+      }
+    }
+
+    function disableTextxs(){
+      texts.forEach(el => {
+        if(el.value == '') {
+          el.setAttribute('disabled', 'disabled')
+        }
+      })
+    }
+
+    function disableCheckboxs() {
+      if(noConozco.checked == true){
+        opciones.forEach(el => {
+          el.setAttribute('disabled', 'disabled')
+          el.checked = false
+          opcionClick(el)
+        })
+      }
+      else{
+        opciones.forEach(el => {
+          el.removeAttribute('disabled')
+        })
+      }
+    }
+
+    noConozco.addEventListener('change', event => {
+      disableCheckboxs()
+      text = noConozco.parentElement.nextElementSibling.firstElementChild
+      if(noConozco.checked == true){
+        text.removeAttribute('disabled')
+        text.setAttribute('readonly', 'readonly')
+        text.value = 'No conozco'
+      }
+      else {
+        text.setAttribute('disabled', 'disabled')
+        text.value = null
       }
     })
-  }
 
-  function disableCheckboxs() {
-    if(noConozco.checked == true){
-      opciones.forEach(el => {
-        el.setAttribute('disabled', 'disabled')
-        el.checked = false
-        opcionClick(el)
-      })
-    }
-    else{
-      opciones.forEach(el => {
-        el.removeAttribute('disabled')
-      })
-    }
-  }
+    disableTextxs()
 
-  noConozco.addEventListener('change', event => {
-    disableCheckboxs()
-    text = noConozco.parentElement.nextElementSibling.firstElementChild
-    if(noConozco.checked == true){
-      text.removeAttribute('disabled')
-      text.setAttribute('readonly', 'readonly')
-      text.value = 'No conozco'
-    }
-    else {
-      text.setAttribute('disabled', 'disabled')
-      text.value = null
-    }
-  })
-
-  disableTextxs()
-
-</script>
+  </script>
+<% end %>
