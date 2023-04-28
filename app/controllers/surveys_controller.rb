@@ -2,6 +2,8 @@
     include Pundit
     before_action :authenticate_user!
     after_action :verify_authorized
+    before_action :find_client!, except: [:index, :new, :create]
+    before_action :find_survey!, except: [:index, :new, :create]
 
     def index
       @surveys = Survey.all
@@ -31,15 +33,9 @@
     end
 
     def edit
-      @survey = Survey.find(params[:id])
-      authorize(@survey)
-
     end
 
     def update
-      @survey = Survey.find(params[:id])
-      authorize(@survey)
-
       if @survey.update(survey_params)
         respond_to do |format|
           format.html { redirect_to surveys_path }
@@ -54,9 +50,6 @@
     end
 
     def destroy
-      @survey = Survey.find(params[:id])
-      authorize(@survey)
-
       @survey.destroy
 
       respond_to do |format|
@@ -66,9 +59,6 @@
     end
 
     def results
-      @survey = Survey.find(params[:id])
-      authorize(@survey)
-
       @survey_results =
         SurveyResults.new(survey: @survey).extract(filter_params)
 
@@ -81,11 +71,17 @@
     end
 
     def toggle_active
-      @survey = Survey.find(params[:id])
-      authorize(@survey)
-
       @survey.update(active: !@survey.active)
       redirect_to surveys_path
+    end
+
+    def find_client!
+      @client = Client.find(params[:client_id])
+    end
+
+    def find_survey!
+      @survey = @client.surveys.find(params[:id])
+      authorize(@survey)
     end
 
     private

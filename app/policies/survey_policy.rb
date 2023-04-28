@@ -36,6 +36,10 @@ class SurveyPolicy < ApplicationPolicy
     @user.platform_admin?
   end
 
+  def toggle_active?
+    @user.platform_admin?
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user

@@ -11,6 +11,14 @@ Rails.application.routes.draw do
       resources :attempts
       patch :toggle_active, on: :member
     end
+
+    resources :clients do
+      resources :surveys do
+        resources :questions
+        resources :attempts
+        patch :toggle_active, on: :member
+      end
+    end
   end
 
   root to: "pages#index"
