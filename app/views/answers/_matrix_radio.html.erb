@@ -1,11 +1,13 @@
 <%= render partial: "answers/errors", locals: {answer: answer} %>
 <div class="form-group">
-  <div class="row">
-    <div class="col-2">
-      <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
-    </div>
+  <div class="row g-0">
+    <% if answer.question.not_dot? %>
+      <div class="col-2">
+        <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
+      </div>
+      <% end %>
     <%- answer.question.options.each_with_index do |option, index| %>
-      <div class="col text-center">
+      <div class="col d-flex align-items-center justify-content-center">
         <span class="form-group sub">
           <%= f.label "answer_text_#{index}" do %>
             <%= f.radio_button :answer_text, option, id: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}" %>

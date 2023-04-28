@@ -1,9 +1,11 @@
 <%= render partial: "answers/errors", locals: {answer: answer} %>
 <div class="form-group">
   <div class="row g-0">
-    <div class="col-2 text-center">
-      <%= answer.question.question_text_with_section_if_first %>
-    </div>
+    <% if answer.question.not_dot? %>
+      <div class="col-2 text-center">
+        <%= answer.question.question_text_with_section_if_first %>
+      </div>
+    <% end %>
     <% answer.question.columns.each do | column | %>
       <div class="col g-0 text-center">
         <%= column.html_safe %>

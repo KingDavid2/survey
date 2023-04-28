@@ -1,10 +1,12 @@
 <%= render partial: "answers/errors", locals: {answer: answer} %>
 <div class="form-group">
   <div class="row">
-    <div class="col-2">
-      <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
-    </div>
-    <div class="col-10 text-center">
+    <% if answer.question.not_dot? %>
+      <div class="col-2">
+        <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
+      </div>
+    <% end %>
+    <div class="col text-center">
       <div class='rating'>
         <%- answer.question.options.reverse.each_with_index do |option, index| %>
           <%= f.radio_button :answer_text, option, id: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}" %>
