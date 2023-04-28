@@ -1,11 +1,11 @@
-<div class='mx-4'>
+<div class='mx-4 my-4'>
   <div class='my-3'>
     <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
     <%= render partial: "answers/errors", locals: {answer: answer} %>
   </div>
   <%= f.fields_for :answer_text do |af| %>
     <%- answer.question.options.each_with_index do |option, index| %>
-      <div class="form-check mb-2">
+      <div class="form-check mb-2 my-4">
         <%= af.check_box index, { checked: checkbox_checked?(answer, option), class: 'form-check-input' }, option %>
         <%= af.label index, option, class: 'form-check-label' %>
       </div>

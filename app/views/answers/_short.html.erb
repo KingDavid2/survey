@@ -1,7 +1,7 @@
-<div class='mx-4'>
+<div class='mx-4 my-2'>
   <%= render partial: "answers/errors", locals: {answer: answer} %>
-  <div class="form-group">
-    <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
-    <%= f.text_area :answer_text, value: answer.answer_text || answer.question.default_text, placeholder: answer.question.placeholder, maxlength: 160, rows: 1, cols: 20%>
+  <div class="form-group d-flex align-items-center gap-3">
+    <%= f.label :answer_text, answer.question.question_text_with_section_if_first, class: 'mr-2' %>
+    <%= f.text_area :answer_text, value: answer.answer_text || answer.question.default_text, placeholder: answer.question.placeholder, maxlength: 160, rows: 1, cols: 20, class: 'form-control' %>
   </div>
 </div>

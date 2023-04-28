@@ -1,7 +1,7 @@
 module Questions
   class MatrixRadio < Radio
     def not_dot?
-      question_text == '.'
+      question_text != '.'
     end
   end
 end

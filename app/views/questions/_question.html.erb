@@ -6,7 +6,7 @@
   <td>
     <ul class="horizontal-list">
       <li><%= link_to "Edit", [:edit, question.survey, question] %></li>
-      <li><%= button_to "Delete", survey_question_path(question.survey, question) %></li>
+      <li><%= button_to "Delete", survey_question_path(question.survey, question), method: :delete, data: { confirm: 'Are you sure you want to delete this question?' } %></li>
     </ul>
   </td>
 </tr>

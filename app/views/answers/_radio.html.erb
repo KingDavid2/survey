@@ -1,4 +1,4 @@
-<div class='mx-4'>
+<div class='mx-4 my-4'>
   <div class='my-3'>
     <%= f.label :answer_text, answer.question.question_text_with_section_if_first.html_safe %>
     <%= render partial: "answers/errors", locals: {answer: answer} %>
@@ -6,7 +6,7 @@
 
   <%= f.fields_for :answer_text do |af| %>
     <%- answer.question.options.each_with_index do |option, index| %>
-      <div class="mb-2">
+      <div class="mb-2 my-4">
         <%= f.radio_button :answer_text, option, {id: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}", class: 'form-check-input'}  %>
         <%= af.label "answer_text_#{index}", option, class: 'form-check-label', for: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}" %>
       </div>
