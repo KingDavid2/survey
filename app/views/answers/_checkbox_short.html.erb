@@ -3,7 +3,7 @@
   <div class="form-group">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 d-flex">
           <%= f.check_box :answer_text_check, { checked: short_checkbox_checked?(answer), class: "form-check-input p-1 #{answer.question.rules[:check_and_not_required_short] == '1' ? 'not-required-check' : 'opciones' }" }, nil %>
           <%= f.label :answer_text_check, answer.question.question_text_with_section_if_first, class: 'mx-1' %>
         </div>
