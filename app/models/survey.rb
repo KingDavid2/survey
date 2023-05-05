@@ -46,7 +46,7 @@ class Survey < ApplicationRecord
       end
       header << "results updated at"
       csv << header
-      attempts.where(SurveyResults.filter(filter, 'id')).each do |attempt|
+      attempts.completed.where(SurveyResults.filter(filter, 'id')).each do |attempt|
         this_attempt = []
 
         # Survey.csv_user_attributes.each do |attribute|
