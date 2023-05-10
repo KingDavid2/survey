@@ -109,15 +109,15 @@
 
 <script>
   const questionType = document.getElementById('question_type');
+  const answerOptions = document.getElementById('question_answer_options');
+
   questionType.addEventListener('change', (event) => {
     checkSelection()
   });
 
   function checkSelection(){
-    if (questionType.value === 'Questions::Select') {
+    if (questionType.value === 'Questions::Select' && answerOptions.value === '') {
       document.getElementById('question_answer_options').value = [...Array(10).keys()].map(x => x + 1).join("\n");
-    } else {
-      document.getElementById('question_answer_options').value = '';
     }
 
     if (questionType.value === 'Questions::Information' || questionType.value === 'Questions::MatrixHeader') {
