@@ -116,8 +116,10 @@
   });
 
   function checkSelection(){
-    if (questionType.value === 'Questions::Select' && answerOptions.value === '') {
-      document.getElementById('question_answer_options').value = [...Array(10).keys()].map(x => x + 1).join("\n");
+    if (answerOptions.value === '') {
+      if (questionType.value === 'Questions::Select' || questionType.value === 'Questions::MatrixRating') {
+        document.getElementById('question_answer_options').value = [...Array(10).keys()].map(x => x + 1).join("\n");
+      }
     }
 
     if (questionType.value === 'Questions::Information' || questionType.value === 'Questions::MatrixHeader') {
