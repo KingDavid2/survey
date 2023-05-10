@@ -9,42 +9,44 @@
     </ul>
   <% end %>
 
-  <div class="form-group">
+  <%= f.submit submit_text, class: 'btn btn-primary mb-2' %>
+
+  <div class="form-group mb-2">
     <%= f.label :type %>
-    <%= f.select :type, ::QuestionForm::QUESTION_TYPES, {}, id: "question_type" %>
+    <%= f.select :type, ::QuestionForm::QUESTION_TYPES, {}, {id: "question_type", class: 'form-select' }  %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2">
     <%= f.label :question_text %>
     <%= f.rich_text_area :question_text %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2">
     <%= f.label :section %>
     <%= f.number_field :section, value: form.section || @survey.last_section_number %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2">
     <%= f.label :position %>
     <%= f.number_field :position, value: form.position || @survey.last_position_number + 1 %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2">
+    <%= f.label :answer_options %>
+    <%= f.text_area :answer_options, rows: 10 %>
+  </div>
+
+  <div class="form-group mb-2 d-none">
     <%= f.label :placeholder %>
     <%= f.text_field :placeholder %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2 d-none">
     <%= f.label :default_text %>
     <%= f.text_field :default_text %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :answer_options %>
-    <%= f.text_area :answer_options %>
-  </div>
-
-  <div class="form-group">
+  <div class="form-group mb-2 d-none">
     <%= f.label :matrix_size %>
     <%= f.number_field :matrix_size %>
   </div>
@@ -52,55 +54,83 @@
     <h4>Other options</h4>
     <hr/>
 
-  <div class="form-group">
-    <%= f.label :answer_presence %>
+  <div class="form-group mb-2">
     <%= f.check_box :answer_presence %>
+    <%= f.label :answer_presence %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2">
     <%= f.label :answer_presence_on_question %>
     <%= f.text_field :answer_presence_on_question %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2">
     <%= f.label :answer_presence_on_answers %>
     <%= f.text_area :answer_presence_on_answers, rows: 5 %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2">
     <%= f.label :answer_uniqueness_on_section %>
     <%= f.text_field :answer_uniqueness_on_section %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :answer_presence_on_section_if_checked %>
+  <div class="form-group mb-2">
     <%= f.check_box :answer_presence_on_section_if_checked %>
+    <%= f.label :answer_presence_on_section_if_checked %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :answer_checked_and_not_required_short %>
+  <div class="form-group mb-2">
     <%= f.check_box :answer_checked_and_not_required_short %>
+    <%= f.label :answer_checked_and_not_required_short %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2 d-none">
     <%= f.label :answer_minimum_length %>
     <%= f.text_field :answer_minimum_length %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2 d-none">
     <%= f.label :answer_maximum_length %>
     <%= f.text_field :answer_maximum_length %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2 d-none">
     <%= f.label :answer_greater_than_or_equal_to %>
     <%= f.text_field :answer_greater_than_or_equal_to %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-2 d-none">
     <%= f.label :answer_less_than_or_equal_to %>
     <%= f.text_field :answer_less_than_or_equal_to %>
   </div>
 
-  <%= f.submit submit_text %>
+  <%= f.submit submit_text, class: 'btn btn-primary mb-2' %>
 <% end %>
+
+<script>
+  const questionType = document.getElementById('question_type');
+  questionType.addEventListener('change', (event) => {
+    checkSelection()
+  });
+
+  function checkSelection(){
+    if (questionType.value === 'Questions::Select') {
+      document.getElementById('question_answer_options').value = [...Array(10).keys()].map(x => x + 1).join("\n");
+    } else {
+      document.getElementById('question_answer_options').value = '';
+    }
+
+    if (questionType.value === 'Questions::Information' || questionType.value === 'Questions::MatrixHeader') {
+      checkPresence(false)
+    } else {
+      checkPresence(true)
+    }
+  }
+
+  function checkPresence(value) {
+    document.getElementById('question_answer_presence').checked = value    
+  }
+
+  checkSelection()
+
+</script>

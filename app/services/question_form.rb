@@ -3,9 +3,9 @@ class QuestionForm < BaseService
     [
       Questions::Checkbox,
       Questions::CheckboxShort,
-      Questions::Date,
-      Questions::Long,
-      Questions::Numeric,
+      # Questions::Date,
+      # Questions::Long,
+      # Questions::Numeric,
       Questions::Radio,
       Questions::Select,
       Questions::Short,
