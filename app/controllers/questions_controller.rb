@@ -37,18 +37,36 @@ class QuestionsController < ApplicationController
 
   private
 
-  def save_and_redirect(params, on_error_key)
-    @question_form = QuestionForm.new(params)
-    @question_form.save
+  def save_and_redirect(form_params, on_error_key)
+    if params[:multiple_select_question].present?
+      questions_split = QuestionTextSplit.new(form_params)
+
+      questions_split.questions.each do |question|
+        @question_form = QuestionForm.new(question)
+        @question_form.save
+
+        if @question_form.errors.present?
+          respond_to do |format|
+            format.html { render on_error_key.to_sym }
+            format.js
+          end
+        end
+      end
+    else
+      @question_form = QuestionForm.new(form_params)
+      @question_form.save
+
+      if @question_form.errors.present?
+        respond_to do |format|
+          format.html { render on_error_key.to_sym }
+          format.js
+        end
+      end
+    end
 
     if @question_form.errors.empty?
       respond_to do |format|
         format.html { redirect_to index_location }
-        format.js
-      end
-    else
-      respond_to do |format|
-        format.html { render on_error_key.to_sym }
         format.js
       end
     end
@@ -78,4 +96,3 @@ class QuestionsController < ApplicationController
     params.require(:question).permit!
   end
 end
-

@@ -16,6 +16,11 @@
     <%= f.select :type, ::QuestionForm::QUESTION_TYPES, {}, {id: "question_type", class: 'form-select' }  %>
   </div>
 
+  <div class="form-group mb-2 d-none">
+    <%= check_box_tag(:multiple_select_question, '1', false , {class: 'form-check-input'} ) %>
+    <%= label_tag(:multiple_select_question, "Multiple select question") %>
+  </div>
+
   <div class="form-group mb-2">
     <%= f.label :question_text %>
     <%= f.rich_text_area :question_text %>
@@ -24,6 +29,7 @@
   <div class="form-group mb-2">
     <%= f.label :section %>
     <%= f.number_field :section, value: form.section || @survey.last_section_number %>
+    <button id="add_section_button" class="btn btn-primary mb-2">+1</button>
   </div>
 
   <div class="form-group mb-2">
@@ -110,6 +116,9 @@
 <script>
   const questionType = document.getElementById('question_type');
   const answerOptions = document.getElementById('question_answer_options');
+  const sectionValue = document.getElementById('question_section');
+  const addSectionButton = document.getElementById('add_section_button');
+  const multipleSelectQuestion = document.getElementById('multiple_select_question');
 
   questionType.addEventListener('change', (event) => {
     checkSelection()
@@ -122,6 +131,12 @@
       }
     }
 
+    if (questionType.value === 'Questions::Select') {
+      multipleSelectQuestion.parentElement.classList.remove('d-none');
+    } else {
+      multipleSelectQuestion.parentElement.classList.add('d-none');
+    }
+
     if (questionType.value === 'Questions::Information' || questionType.value === 'Questions::MatrixHeader') {
       checkPresence(false)
     } else {
@@ -132,6 +147,11 @@
   function checkPresence(value) {
     document.getElementById('question_answer_presence').checked = value    
   }
+
+  addSectionButton.addEventListener('click', () => {
+    event.preventDefault();
+    sectionValue.value = parseInt(sectionValue.value) + 1;
+  });
 
   checkSelection()
 
