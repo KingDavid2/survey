@@ -21,18 +21,20 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :clients do
+    resources :surveys do
+      resources :attempts
+    end
+  end
+
   root to: "pages#index"
   get 'over', to: 'attempts#over'
 
+  get ':id', to: 'clients#show'
   get ':client_id/results', to: 'results#index', as: :client_results
   get ':client_id/results/:survey_id', to: 'results#show', as: :client_results_survey
   get ':client_id/:survey_id', to: 'attempts#new', as: :new_attempt_flat
   get ':client_id/:survey_id/:id', to: 'attempts#edit', as: :edit_attempt_flat
   patch ':client_id/:survey_id/:id', to: 'attempts#update', as: :patch_attempt_flat
 
-  resources :clients do
-    resources :surveys do
-      resources :attempts
-    end
-  end
 end

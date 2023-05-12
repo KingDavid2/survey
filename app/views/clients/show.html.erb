@@ -1,10 +1,16 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @client %>
-
-<div>
-  <%= link_to "Edit this client", edit_client_path(@client) %> |
-  <%= link_to "Back to clients", clients_path %>
-
-  <%= button_to "Destroy this client", @client, method: :delete %>
+<h1>
+  Dialogos
+</h1>
+<div class='row'>
+  <% @client.surveys.each do | survey | %>
+    <div class='col-3'>
+      <div class="card text-center">
+      <h5 class="card-header"><%= survey.name %></h5>
+      <div class="card-body">
+          <h5 class="card-title"></h5>
+          <%= link_to 'Ir', "/#{@client.slug}/#{survey.slug}", class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
