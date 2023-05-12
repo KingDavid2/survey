@@ -2,7 +2,7 @@
   Dialogos
 </h1>
 <div class='row'>
-  <% @client.surveys.each do | survey | %>
+  <% @client.surveys.order(slug: :asc).each do | survey | %>
     <div class='col-3'>
       <div class="card text-center">
       <h5 class="card-header"><%= survey.name %></h5>
