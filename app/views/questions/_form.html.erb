@@ -137,7 +137,11 @@
       multipleSelectQuestion.parentElement.classList.add('d-none');
     }
 
-    if (questionType.value === 'Questions::Information' || questionType.value === 'Questions::MatrixHeader') {
+    if ( questionType.value === 'Questions::CheckboxShort') {
+      document.getElementById('question_answer_presence_on_section_if_checked').checked = true   
+    }
+
+    if (questionType.value === 'Questions::Information' || questionType.value === 'Questions::MatrixHeader' || questionType.value === 'Questions::CheckboxShort') {
       checkPresence(false)
     } else {
       checkPresence(true)
