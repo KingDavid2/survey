@@ -15,6 +15,22 @@
 @import "bootstrap";
 @import 'actiontext.css';
 
+.nav-logo-client {
+  height: 100px;
+
+  img {
+    height: 100%;
+  }
+}
+
+.nav-logo {
+  height: 30px;
+
+  img {
+    height: 100%;
+  }
+}
+
 .rating {
   border:none;
   display: flex;
