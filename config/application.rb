@@ -21,6 +21,8 @@ module App
 
     config.i18n.default_locale = :es
 
+    config.time_zone = 'America/Mexico_City'
+
     # Changes ids in favor of uuids
     config.active_record.primary_key = :uuid
 
