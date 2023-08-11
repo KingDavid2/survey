@@ -7,3 +7,45 @@
     <%= f.select :answer_text, answer.question.options, {include_blank: true}, { class: 'form-select' }  %>
   </div>
 </div>
+
+<% if answer.question.last_question_on_section? && answer.question.rules[:uniqueness_on_section].present? %>
+  <script>
+    var selects = document.querySelectorAll('.form-select');
+
+    selects.forEach(el => {el.addEventListener('change', event => {
+      disableOptions(el)
+    }
+    )});
+
+    function disableOptions(el){
+      var selectedValue = el.value;
+      var previouslySelectedValue = el.getAttribute("previously-selected");
+
+      if (previouslySelectedValue !== null) {
+        selects.forEach(function(otherSelect) {
+          if (otherSelect !== el) {
+            var options = otherSelect.querySelectorAll("option");
+            options.forEach(function(option) {
+              if (option.value === previouslySelectedValue) {
+                option.disabled = false;
+              }
+            });
+          }
+        });
+      }
+
+      if (selectedValue !== " ") {
+        selects.forEach(function(otherSelect) {
+          if (otherSelect !== el) {
+            var options = otherSelect.querySelectorAll("option");
+            options.forEach(function(option) {
+              if (option.value === selectedValue) {
+                option.disabled = true;
+              }
+            });
+          }
+        })
+      }
+    }
+  </script>
+<% end %>
