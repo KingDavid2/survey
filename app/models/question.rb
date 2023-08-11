@@ -114,6 +114,14 @@ class Question < ApplicationRecord
     last_question_on_section == self
   end
 
+  def last_select_question_on_section
+    survey.questions.by_section(self.section).where(type: 'Questions::Select').last
+  end
+
+  def last_select_question_on_section?
+    last_select_question_on_section == self
+  end
+
   def answers_array
     answer_options.split(Global.answers_delimiter)
   end
