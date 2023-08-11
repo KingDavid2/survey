@@ -4,7 +4,7 @@
     <%= render partial: "answers/errors", locals: {answer: answer} %>
   </div>
   <div class='col'>
-    <%= f.select :answer_text, answer.question.options, {include_blank: true}, { class: 'form-select' }  %>
+    <%= f.select :answer_text, answer.question.options, {include_blank: true}, { class: 'form-select', data: {previously: ''} }  %>
   </div>
 </div>
 
@@ -19,9 +19,9 @@
 
     function disableOptions(el){
       var selectedValue = el.value;
-      var previouslySelectedValue = el.getAttribute("previously-selected");
+      var previouslySelectedValue = el.getAttribute("data-previously");
 
-      if (previouslySelectedValue !== null) {
+      if (previouslySelectedValue !== '') {
         selects.forEach(function(otherSelect) {
           if (otherSelect !== el) {
             var options = otherSelect.querySelectorAll("option");
@@ -34,7 +34,7 @@
         });
       }
 
-      if (selectedValue !== " ") {
+      if (selectedValue !== "") {
         selects.forEach(function(otherSelect) {
           if (otherSelect !== el) {
             var options = otherSelect.querySelectorAll("option");
@@ -46,6 +46,7 @@
           }
         })
       }
+      el.setAttribute("data-previously", selectedValue)
     }
   </script>
 <% end %>
