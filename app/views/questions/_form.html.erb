@@ -33,6 +33,12 @@
   </div>
 
   <div class="form-group mb-2">
+    <%= f.label :page %>
+    <%= f.number_field :page, value: form.page || @survey.last_page_number %>
+    <button id="add_page_button" class="btn btn-primary mb-2">+1</button>
+  </div>
+
+  <div class="form-group mb-2">
     <%= f.label :position %>
     <%= f.number_field :position, value: form.position || @survey.last_position_number + 1 %>
   </div>
@@ -118,6 +124,8 @@
   const answerOptions = document.getElementById('question_answer_options');
   const sectionValue = document.getElementById('question_section');
   const addSectionButton = document.getElementById('add_section_button');
+  const addPageButton = document.getElementById('add_page_button');
+  const pageValue = document.getElementById('question_page');
   const multipleSelectQuestion = document.getElementById('multiple_select_question');
 
   questionType.addEventListener('change', (event) => {
@@ -155,6 +163,11 @@
   addSectionButton.addEventListener('click', () => {
     event.preventDefault();
     sectionValue.value = parseInt(sectionValue.value) + 1;
+  });
+
+  addPageButton.addEventListener('click', () => {
+    event.preventDefault();
+    pageValue.value = parseInt(pageValue.value) + 1;
   });
 
   checkSelection()

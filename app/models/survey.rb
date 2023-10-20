@@ -17,16 +17,20 @@ class Survey < ApplicationRecord
   has_rich_text :introduction
   has_rich_text :conclusion
 
-  def sections
-    questions.pluck(:section).uniq.count
+  def pages
+    questions.pluck(:page).uniq.count
   end
 
   def last_section_number
-    questions.pluck(:section).sort.last || 1
+    questions.by_page(questions.last.page.to_i).pluck(:section).sort.last || 1
+  end
+
+  def last_page_number
+    questions.where.not(page: nil).pluck(:page).sort.last || 1
   end
 
   def last_position_number
-    questions.pluck(:position).sort.last || 0
+    questions.where.not(position: nil).pluck(:position).sort.last || 0
   end
 
   # def self.csv_user_attributes=(attributes)
@@ -64,3 +68,11 @@ class Survey < ApplicationRecord
     end
   end
 end
+
+# client.surveys.each do |s|
+#   s.attempts.each do |a|
+#     a.answers.destroy_all
+#     a.destroy
+#   end
+# end
+

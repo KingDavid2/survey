@@ -6,6 +6,7 @@ class Question < ApplicationRecord
 
   default_scope { order(:position) }
   scope :by_section, ->(section) { where('section = ?', section) }
+  scope :by_page, ->(page) { where('page = ?', page) }
 
   validates :survey, :question_text, :section, :position, :presence => true
   validate :type_can_change
@@ -95,11 +96,11 @@ class Question < ApplicationRecord
     text_body = Nokogiri::HTML.parse(question_text.to_s)
     inner_div = text_body.at_css('.trix-content div')
     inner_div.content = section.to_s + ". " + inner_div.content
-    ActionText::Content.new(text_body.to_html)
+    ActionText::Content.new(text_body.to_html)    
   end
 
   def question_text_with_section_if_first
-    if position == survey.questions.by_section(section).pluck(:position).min
+    if position == survey.questions.by_page(page).by_section(section).pluck(:position).min
       question_text_with_section
     else
       question_text.body
@@ -107,7 +108,7 @@ class Question < ApplicationRecord
   end
 
   def last_question_on_section
-    survey.questions.by_section(self.section).last
+    survey.questions.by_page(self.page).by_section(self.section).last
   end
 
   def last_question_on_section?
@@ -115,7 +116,7 @@ class Question < ApplicationRecord
   end
 
   def last_select_question_on_section
-    survey.questions.by_section(self.section).where(type: 'Questions::Select').last
+    survey.questions.by_page(self.page).by_section(self.section).where(type: 'Questions::Select').last
   end
 
   def last_select_question_on_section?

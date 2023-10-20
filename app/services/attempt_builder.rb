@@ -41,7 +41,7 @@ class AttemptBuilder < BaseService
     save!(options)
   rescue ActiveRecord::ActiveRecordError => e
     # repopulate answers here in case of failure as they are not getting updated
-    @answers = @survey.questions.where(section: @step).collect do |question|
+    @answers = @survey.questions.by_page(@step).collect do |question|
       @attempt.answers.find { |a| a.question_id == question.id }
     end
     false
@@ -71,7 +71,7 @@ class AttemptBuilder < BaseService
     #   @attempt = Attempt.new(survey: survey)
     # end
     @attempt.survey = self.survey
-    @answers = @survey.questions.where(section: @step).collect do |question|
+    @answers = @survey.questions.by_page(@step).collect do |question|
       if answered_questions.include? question.id
         @attempt.answers.find_by(question_id: question.id)
       else

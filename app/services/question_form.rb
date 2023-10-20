@@ -23,7 +23,7 @@ class QuestionForm < BaseService
 
   attr_accessor :client, :survey, :question, :default_text, :placeholder,
     :type, :question_text, :section, :position, :answer_options, :answer_presence,
-    :answer_minimum_length, :answer_maximum_length,
+    :answer_minimum_length, :answer_maximum_length, :page,
     :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :matrix_size,
     :answer_presence_on_question, :answer_presence_on_answers, :answer_uniqueness_on_section,
     :answer_presence_on_section_if_checked, :answer_checked_and_not_required_short
@@ -63,6 +63,7 @@ class QuestionForm < BaseService
       :survey => survey,
       :question_text  => question_text,
       :section => section,
+      :page => page,
       :position => position,
       :default_text => default_text,
       :placeholder => placeholder,
@@ -88,6 +89,7 @@ class QuestionForm < BaseService
     self.survey  = question.survey
     self.question_text   = question.question_text
     self.section = question.section
+    self.page = question.page
     self.position = question.position
     self.default_text    = question.default_text
     self.placeholder     = question.placeholder

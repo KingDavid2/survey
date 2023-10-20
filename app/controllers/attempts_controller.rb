@@ -68,7 +68,7 @@ class AttemptsController < ApplicationController
 
   def set_step!
     @step = params[:step]
-    @percent = [(@step.to_f ),0].max / @survey.sections.to_f * 100
+    @percent = [(@step.to_f ),0].max / @survey.pages.to_f * 100
   end
 
   def attempt_params
@@ -104,7 +104,7 @@ class AttemptsController < ApplicationController
   # end
 
   def set_submit_text!
-    @submit_text = @survey.sections == @step.to_i ? I18n.t('form.finish') : I18n.t('form.next')
+    @submit_text = @survey.pages == @step.to_i ? I18n.t('form.finish') : I18n.t('form.next')
   end
 end
 
