@@ -96,14 +96,16 @@ class Question < ApplicationRecord
     text_body = Nokogiri::HTML.parse(question_text.to_s)
     inner_div = text_body.at_css('.trix-content div')
     inner_div.content = section.to_s + ". " + inner_div.content
-    ActionText::Content.new(text_body.to_html)    
+    # ActionText::Content.new(text_body.to_html)
   end
 
   def question_text_with_section_if_first
     if position == survey.questions.by_page(page).by_section(section).pluck(:position).min
       question_text_with_section
     else
-      question_text.body
+      text_body = Nokogiri::HTML.parse(question_text.to_s)
+      inner_div = text_body.at_css('.trix-content div')
+      inner_div.content
     end
   end
 
