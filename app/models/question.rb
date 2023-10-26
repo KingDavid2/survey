@@ -93,10 +93,11 @@ class Question < ApplicationRecord
   end
 
   def question_text_with_section
-    text_body = Nokogiri::HTML.parse(question_text.to_s)
-    inner_div = text_body.at_css('.trix-content div')
-    inner_div.content = section.to_s + ". " + inner_div.content
-    # ActionText::Content.new(text_body.to_html)
+    text_body = Nokogiri::HTML.parse(question_text.body.to_html)
+    inner_div = text_body.at_css('div')
+    first_text_node = inner_div.children.first
+    first_text_node.content = section.to_s + ". " + first_text_node.content
+    ActionText::Content.new(text_body.to_html)
   end
 
   def get_first_question_on_section
@@ -104,12 +105,10 @@ class Question < ApplicationRecord
   end
 
   def question_text_with_section_if_first
-    content = if position == get_first_question_on_section.position
+    if position == get_first_question_on_section.position
       question_text_with_section
     else
-      text_body = Nokogiri::HTML.parse(question_text.to_s)
-      inner_div = text_body.at_css('.trix-content div')
-      inner_div.content
+      question_text
     end
   end
 
