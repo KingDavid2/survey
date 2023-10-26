@@ -33,8 +33,9 @@
 
   <div class="form-group mb-2">
     <%= f.label :section %>
-    <%= f.number_field :section, value: form.section || @survey.last_section_number + 1 %>
+    <%= f.number_field :section, value: form.section || @survey.last_section_number %>
     <button id="add_section_button" class="btn btn-primary mb-2">+1</button>
+    <button id="unique_answer_on_section" class="btn btn-primary mb-2">unique answer on section</button>
   </div>
 
   <div class="form-group mb-2">
@@ -132,6 +133,7 @@
   const addPageButton = document.getElementById('add_page_button');
   const pageValue = document.getElementById('question_page');
   const multipleSelectQuestion = document.getElementById('multiple_select_question');
+  const uniqueAnswerOnSection = document.getElementById('unique_answer_on_section');
 
   questionType.addEventListener('change', (event) => {
     checkSelection()
@@ -161,6 +163,8 @@
     }
   }
 
+  checkSelection();
+
   function checkPresence(value) {
     document.getElementById('question_answer_presence').checked = value    
   }
@@ -175,6 +179,9 @@
     pageValue.value = parseInt(pageValue.value) + 1;
   });
 
-  checkSelection()
+  uniqueAnswerOnSection.addEventListener('click', () => {
+    event.preventDefault();
+    document.getElementById('question_answer_uniqueness_on_section').value = document.getElementById('question_section').value
+  });
 
 </script>
