@@ -137,9 +137,15 @@ class Question < ApplicationRecord
     question_text.body.to_plain_text.squish
   end
 
-  def not_dot?     
+  def not_dot?
     text_body = Nokogiri::HTML.parse(question_text.to_s)
     inner_div = text_body.at_css('.trix-content div')
     inner_div.content != '.'
+  end
+
+  def double_dot?
+    text_body = Nokogiri::HTML.parse(question_text.to_s)
+    inner_div = text_body.at_css('.trix-content div')
+    inner_div.content == '..'
   end
 end
