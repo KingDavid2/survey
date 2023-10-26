@@ -22,7 +22,7 @@ class Survey < ApplicationRecord
   end
 
   def last_section_number
-    questions.by_page(questions.last.page.to_i).pluck(:section).sort.last || 1
+    questions.by_page(questions.last(2).first.page).pluck(:section).sort.last || 1
   end
 
   def last_page_number
