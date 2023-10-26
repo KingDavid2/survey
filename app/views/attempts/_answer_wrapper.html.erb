@@ -1,3 +1,7 @@
 <div class='<%= partial -%>_question' >
   <%= render partial: "answers/#{partial}", locals: { f: f, answer: answer } -%>
 </div>
+
+<% if answer.question.last_question_on_section? && !answer.question.last_question_on_page? %>
+  <div class="divider div-transparent div-arrow-down opacity-50 my-5"></div>
+<% end %>

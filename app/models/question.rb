@@ -121,6 +121,14 @@ class Question < ApplicationRecord
     last_question_on_section == self
   end
 
+  def last_question_on_page
+    survey.questions.by_page(self.page).last
+  end
+
+  def last_question_on_page?
+    last_question_on_page == self
+  end
+
   def last_select_question_on_section
     survey.questions.by_page(self.page).by_section(self.section).where(type: 'Questions::Select').last
   end
