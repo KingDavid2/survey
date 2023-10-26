@@ -99,8 +99,12 @@ class Question < ApplicationRecord
     # ActionText::Content.new(text_body.to_html)
   end
 
+  def get_first_question_on_section
+    survey.questions.by_page(page).by_section(section).first
+  end
+
   def question_text_with_section_if_first
-    if position == survey.questions.by_page(page).by_section(section).pluck(:position).min
+    content = if position == get_first_question_on_section.position
       question_text_with_section
     else
       text_body = Nokogiri::HTML.parse(question_text.to_s)
