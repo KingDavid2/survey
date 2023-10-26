@@ -27,6 +27,11 @@
   </div>
 
   <div class="form-group mb-2">
+    <%= f.label :question_text_1 %>
+    <%= f.rich_text_area :question_text_1 %>
+  </div>
+
+  <div class="form-group mb-2">
     <%= f.label :section %>
     <%= f.number_field :section, value: form.section || @survey.last_section_number + 1 %>
     <button id="add_section_button" class="btn btn-primary mb-2">+1</button>

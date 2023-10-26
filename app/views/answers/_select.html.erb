@@ -1,12 +1,25 @@
-<div class='row mx-4 my-4'>
-  <div class='col-10'>
-    <%= answer.question.question_text_with_section_if_first.html_safe %>
-    <%= render partial: "answers/errors", locals: {answer: answer} %>
+
+
+  <div class='row mx-4 my-4'>
+    <% if answer.question.question_text_1.present? %>
+      <div class='col-3'>
+        <%= answer.question.question_text_with_section_if_first %>
+        <%= render partial: "answers/errors", locals: {answer: answer} %>
+      </div>
+      <div class='col-7'>
+        <%= answer.question.question_text_1 %>
+      </div>
+    <% else %>
+      <div class='col-10'>
+        <%= answer.question.question_text_with_section_if_first %>
+        <%= render partial: "answers/errors", locals: {answer: answer} %>
+      </div>
+    <% end %>
+    <div class='col-2'>
+      <%= f.select :answer_text, answer.question.options, {include_blank: true}, { class: "form-select id-#{answer.question.section}", data: {previously: ''} }  %>
+    </div>
   </div>
-  <div class='col'>
-    <%= f.select :answer_text, answer.question.options, {include_blank: true}, { class: "form-select id-#{answer.question.section}", data: {previously: ''} }  %>
-  </div>
-</div>
+
 
 <% if answer.question.rules[:uniqueness_on_section].present? && answer.question.last_select_question_on_section? %>
   <script>

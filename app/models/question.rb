@@ -12,6 +12,7 @@ class Question < ApplicationRecord
   validate :type_can_change
   serialize :validation_rules
   has_rich_text :question_text
+  has_rich_text :question_text_1
 
   def self.inherited(child)
     child.instance_eval do
