@@ -1,22 +1,41 @@
-<div class='my-4'>
-  <%= render partial: "answers/errors", locals: {answer: answer} %>
-  <div class="form-group">
-    <div class="row g-0">
-      <% if answer.question.not_dot? %>
-        <% if answer.question.double_dot? %>
-          <div class="col-2 g-0 text-center">
-          </div>
-        <% else %>
-          <div class="col-2 text-center">
-            <%= answer.question.question_text_with_section_if_first %>
-          </div>
-        <% end %>
-      <% end %>
-      <% answer.question.columns.each do | column | %>
-        <div class="col g-0 text-center">
-          <%= column.html_safe %>
+<% if answer.question.triple_dot? %>
+  <div class='my-4'>
+    <%= render partial: "answers/errors", locals: {answer: answer} %>
+    <div class="form-group">
+      <div class="row g-0">
+        <div class="col-3 g-0 text-center">
+          <%= answer.question.columns[0].html_safe %>
         </div>
-      <% end %>
+        <div class="col-7 g-0 text-center">
+          <%= answer.question.columns[1].html_safe %>
+        </div>
+        <div class="col-2 g-0 text-center">
+          <%= answer.question.columns[2].html_safe %>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+<% else %>
+  <div class='my-4'>
+    <%= render partial: "answers/errors", locals: {answer: answer} %>
+    <div class="form-group">
+      <div class="row g-0">
+        <% if answer.question.not_dot? %>
+          <% if answer.question.double_dot? %>
+            <div class="col-2 g-0 text-center">
+            </div>
+          <% else %>
+            <div class="col-2 text-center">
+              <%= answer.question.question_text_with_section_if_first %>
+            </div>
+          <% end %>
+        <% end %>
+        <% answer.question.columns.each do | column | %>
+          <div class="col g-0 text-center">
+            <%= column.html_safe %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

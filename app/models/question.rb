@@ -156,4 +156,10 @@ class Question < ApplicationRecord
     inner_div = text_body.at_css('.trix-content div')
     inner_div.content == '..'
   end
+
+  def triple_dot?    
+    text_body = Nokogiri::HTML.parse(question_text.to_s)
+    inner_div = text_body.at_css('.trix-content div')
+    inner_div.content == '...'
+  end
 end
