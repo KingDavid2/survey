@@ -1,8 +1,10 @@
 <%= render "logo" %>
 
-<div class="progress">
-  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%=@percent.round(2)%>%;" aria-valuenow="<%=@percent.round(2)%>" aria-valuemin="0" aria-valuemax="100"><%=@percent.round(2)%>%</div>
-</div>
+<% if @survey.pages > 1 %>
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%=@percent.round(2)%>%;" aria-valuenow="<%=@percent.round(2)%>" aria-valuemin="0" aria-valuemax="100"><%=@percent.round(2)%>%</div>
+  </div>
+<% end %>
 <div class="mx-0 mx-sm-auto">
   <%= form_for(@attempt_builder, as: :attempt_builder, url: patch_attempt_flat_path(client: @survey.client, survey: @survey, id: @attempt_builder.attempt.id), method: :patch, class: 'px-4') do |f| %>
     <div class="card">
