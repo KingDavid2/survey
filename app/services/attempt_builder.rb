@@ -3,6 +3,7 @@ class AttemptBuilder < BaseService
 
   def initialize(params = {})
     super(params)
+
     self.step ||= 0
     build_attempt
   end
@@ -12,6 +13,10 @@ class AttemptBuilder < BaseService
   end
 
   def save!(options = {})
+    # if options.has_key?(:validate) && options.fetch(:validate, true) == false
+    #   params.reject { |key, value| value["answer_text"].blank? }
+    # end
+
     params.each do |question_id, answer_attributes|
       answer = @attempt.answers.find { |a| a.question_id.to_s == question_id.to_s }
       next unless answer
@@ -30,11 +35,14 @@ class AttemptBuilder < BaseService
       else
         answer.answer_text = text
       end
+      
       answer.question.validate_answer(answer)
-
+      if !answer.valid? && options.has_key?(:validate) && options.fetch(:validate, true) == false
+        answer.delete
+      end
       # answer.save!
     end
-    @attempt.save!
+    @attempt.save! **options
   end
 
   def save(options = {})
@@ -56,6 +64,30 @@ class AttemptBuilder < BaseService
 
   def answered_questions
     @attempt.answers.pluck(:question_id)
+  end
+
+  def delete_nil_and_empty
+    @attempt.answers.where(answer_text: [nil, '']).delete_all
+  end
+
+  def answers_valid?
+    @attempt.answers.each do |answer|
+      answer.question.validate_answer(answer)
+      answer.valid?
+    end
+  end
+
+  def completed_and_valid?
+    @attempt.is_completed? && answers_valid?
+  end
+
+  def next_step
+    next_page = @step.to_i + 1
+    if @attempt.survey.pages >= next_page
+      next_page
+    else
+      @step
+    end
   end
   
   private

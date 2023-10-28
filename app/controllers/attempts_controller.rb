@@ -33,27 +33,38 @@ class AttemptsController < ApplicationController
   end
 
   def edit
+    @attempt_path = edit_attempt_flat_url(id: params[:id], step: @step ) if params[:saved].present?
     @attempt_builder = AttemptBuilder.new(attempt_params.merge(action: "update"))
   end
 
   def update
-    @attempt_builder = AttemptBuilder.new(attempt_params)
+    if params[:save]
+      @attempt_builder = AttemptBuilder.new(attempt_params)
+      @attempt_builder.save(validate: false)
 
-    if @attempt_builder.save
-      # @attempt_builder.attempt.save!
-      if @attempt_builder.attempt.is_completed?
-        redirect_to after_answer_path_for
-      else
-        redirect_to edit_attempt_flat_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)
-      end
+      redirect_to edit_attempt_flat_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i, saved: true)
     else
-      render :edit
+      @attempt_builder = AttemptBuilder.new(attempt_params)
+
+      if @attempt_builder.save
+        # @attempt_builder.attempt.save!
+        if @attempt_builder.completed_and_valid?
+          redirect_to after_answer_path_for
+        elsif @attempt_builder.answers_valid?
+          redirect_to edit_attempt_flat_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)
+        else
+          render :edit
+        end
+      else
+        render :edit
+      end
     end
   end
 
   def over; end
 
   private
+
   def find_client!
     @client = Client.find(params[:client_id])
   end
