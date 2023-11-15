@@ -39,7 +39,7 @@ class QuestionsController < ApplicationController
     new_question = @question.dup
     new_question.position = @survey.last_position_number + 10
     new_question.question_text = @question.question_text.dup
-    new_question.question_text = @question.question_text_1.dup
+    new_question.question_text_1 = @question.question_text_1.dup
     if new_question.save
       flash[:notice] = "Question duplicated successfully."
     else
