@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_client!
   before_action :find_survey!
-  before_action :find_question!, :only => [:edit, :update, :destroy]
+  before_action :find_question!, :only => [:edit, :update, :destroy, :duplicate]
 
   def index
     @questions = @survey.questions
@@ -33,6 +33,19 @@ class QuestionsController < ApplicationController
       format.html { redirect_to index_location }
       format.js
     end
+  end
+
+  def duplicate
+    new_question = @question.dup
+    new_question.position = @survey.last_position_number + 10
+    new_question.question_text = @question.question_text.dup
+    new_question.question_text = @question.question_text_1.dup
+    if new_question.save
+      flash[:notice] = "Question duplicated successfully."
+    else
+      flash[:notice] = "Failed to duplicate question."
+    end
+    redirect_back(fallback_location: root_path)
   end
 
   private

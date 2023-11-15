@@ -14,7 +14,9 @@ Rails.application.routes.draw do
 
     resources :clients do
       resources :surveys do
-        resources :questions
+        resources :questions do
+          get 'duplicate', on: :member
+        end
         resources :attempts
         patch :toggle_active, on: :member
       end
