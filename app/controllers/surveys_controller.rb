@@ -6,7 +6,12 @@
     before_action :find_survey!, except: [:index, :new, :create]
 
     def index
-      @surveys = Survey.all
+      if params[:search]
+        @surveys = Survey.joins(:client).where("clients.name LIKE ? OR surveys.name LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+      else
+        @surveys = Survey.all
+      end
+
       authorize(@surveys)
     end
 

@@ -7,14 +7,28 @@
   <%= params[:active].to_i == 0 ? "In-A" : "A" %>ctive Surveys
 </h2>
 <h3>
-    <%= link_to "New Client", new_client_path %>
+  <%= link_to "New Client", new_client_path %>
 </h3>
 <h3>
-    <%= link_to "New Survey", new_survey_path %>
+  <%= link_to "New Survey", new_survey_path %>
 </h3>
 <h4>
   <%= link_to t('Back to home'), '/' %>
 </h4>
+
+<%= form_tag surveys_path, method: :get, class: "py-2" do %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= label_tag :search, "Search Surveys:", class: "py-1" %>
+      <%= text_field_tag :search, params[:search], class: "form-control" %>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
 <hr/>
 
 <table>
