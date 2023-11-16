@@ -6,6 +6,16 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = @survey.questions
+
+    if params[:sort].present?
+      case params[:sort]
+      when 'position'
+        @order = toggle_order(params[:sort])
+        @questions = @questions.unscoped.order(position: @order)
+      else
+        @questions
+      end
+    end
   end
 
   def new

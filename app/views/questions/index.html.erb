@@ -18,7 +18,7 @@
     <tr>
       <th><%= t('questions.page') -%></th>
       <th><%= t('questions.section') -%></th>
-      <th><%= t('questions.position') -%></th>
+      <th><%= link_to t('questions.position'), { sort: 'position', order: toggle_order('position') } -%></th>
       <th><%= t('questions.type') -%></th>
       <th><%= t('questions.question') -%></th>
     </tr>

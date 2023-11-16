@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
   around_action :switch_locale
 
+  helper_method :toggle_order
+
+  def toggle_order(column)
+    params[:order] == 'asc' ? 'desc' : 'asc'
+  end
+
   def switch_locale(&action)
     
     if params[:locale]
