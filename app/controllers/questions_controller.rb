@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
       case params[:sort]
       when 'position'
         @order = toggle_order(params[:sort])
-        @questions = @questions.unscoped.order(position: @order)
+        @questions = @questions.reorder(position: @order)
       else
         @questions
       end
