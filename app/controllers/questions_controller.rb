@@ -52,10 +52,11 @@ class QuestionsController < ApplicationController
     new_question.question_text_1 = @question.question_text_1.dup
     if new_question.save
       flash[:notice] = "Question duplicated successfully."
+      redirect_to edit_client_survey_question_path(@client, @survey, new_question)
     else
       flash[:notice] = "Failed to duplicate question."
+      redirect_back(fallback_location: root_path)
     end
-    redirect_back(fallback_location: root_path)
   end
 
   private
