@@ -76,6 +76,13 @@ class Question < ApplicationRecord
         answer.errors.add(:answer_text, :taken)
       end
     end
+
+    if rules[:answer_text_count_equals_to].present?
+      count_answers = answer.answer_text.split(Global.answers_delimiter).count
+      if count_answers != rules[:answer_text_count_equals_to].to_i
+        answer.errors.add(:answer_text, :count_equals_to, count: rules[:answer_text_count_equals_to])
+      end
+    end
   end
 
   def filter_duplicates_by_my_attribute

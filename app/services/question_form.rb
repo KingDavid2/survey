@@ -26,7 +26,7 @@ class QuestionForm < BaseService
     :answer_minimum_length, :answer_maximum_length, :page,
     :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :matrix_size,
     :answer_presence_on_question, :answer_presence_on_answers, :answer_uniqueness_on_section,
-    :answer_presence_on_section_if_checked, :answer_checked_and_not_required_short
+    :answer_answer_text_count_equals_to, :answer_presence_on_section_if_checked, :answer_checked_and_not_required_short
 
   delegate :valid?, :errors, :to => :question
 
@@ -58,6 +58,7 @@ class QuestionForm < BaseService
   end
 
   def to_question_params
+    binding.pry
     {
       :type => type,
       :survey => survey,
@@ -75,6 +76,7 @@ class QuestionForm < BaseService
         :presence_on_question => answer_presence_on_question,
         :presence_on_answers => answer_presence_on_answers,
         :uniqueness_on_section => answer_uniqueness_on_section,
+        :answer_text_count_equals_to => answer_answer_text_count_equals_to,
         :presence_on_section => answer_presence_on_section_if_checked,
         :check_and_not_required_short => answer_checked_and_not_required_short,
         :minimum  => answer_minimum_length,
@@ -86,6 +88,7 @@ class QuestionForm < BaseService
   end
 
   def from_question_to_attributes(question)
+    binding.pry
     self.type = question.type
     self.survey  = question.survey
     self.question_text   = question.question_text
@@ -101,6 +104,7 @@ class QuestionForm < BaseService
     self.answer_presence_on_question = question.rules[:presence_on_question]
     self.answer_presence_on_answers = question.rules[:presence_on_answers]
     self.answer_uniqueness_on_section = question.rules[:uniqueness_on_section]
+    self.answer_answer_text_count_equals_to = question.rules[:answer_text_count_equals_to]
     self.answer_presence_on_section_if_checked = question.rules[:presence_on_section]
     self.answer_checked_and_not_required_short = question.rules[:check_and_not_required_short]
     self.answer_minimum_length = question.rules[:minimum]
