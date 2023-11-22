@@ -58,7 +58,6 @@ class QuestionForm < BaseService
   end
 
   def to_question_params
-    binding.pry
     {
       :type => type,
       :survey => survey,
@@ -88,7 +87,6 @@ class QuestionForm < BaseService
   end
 
   def from_question_to_attributes(question)
-    binding.pry
     self.type = question.type
     self.survey  = question.survey
     self.question_text   = question.question_text
