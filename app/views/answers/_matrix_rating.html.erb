@@ -1,5 +1,8 @@
-<div class='my-4'>
+<div class='mx-4 my-2'>
   <%= render partial: "answers/errors", locals: {answer: answer} %>
+</div>
+
+<div class='my-4'>
   <div class="form-group">
     <div class="row">
       <% if answer.question.not_dot? %>
