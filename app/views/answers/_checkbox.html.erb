@@ -6,9 +6,35 @@
   <%= f.fields_for :answer_text do |af| %>
     <%- answer.question.options.each_with_index do |option, index| %>
       <div class="form-check mb-2 my-4">
-        <%= af.check_box index, { checked: checkbox_checked?(answer, option), class: 'form-check-input' }, option %>
+        <%= af.check_box index, { checked: checkbox_checked?(answer, option), class: "form-check-input id-#{answer.question.section} #{ option == 'Ninguno' ? 'ninguno' : 'opciones' }" }, option %>
         <%= af.label index, option, class: 'form-check-label' %>
       </div>
     <% end %>
   <% end %>
 </div>
+
+<% if answer.question.last_question_on_section? %>
+  <script>
+    var checks<%= answer.question.section %> = document.querySelectorAll('.id-<%= answer.question.section %>.opciones');
+    var check<%= answer.question.section %>Ninguno = document.querySelector('.id-<%= answer.question.section %>.ninguno');
+
+    function disableCheckboxs() {
+      if(check<%= answer.question.section %>Ninguno.checked == true){
+        checks<%= answer.question.section %>.forEach(el => {
+          el.setAttribute('disabled', 'disabled')
+          el.checked = false
+        })
+      }
+      else{
+        checks<%= answer.question.section %>.forEach(el => {
+          el.removeAttribute('disabled')
+        })
+      }
+    }
+
+    check<%= answer.question.section %>Ninguno.addEventListener('change', event => {
+      disableCheckboxs()
+    })
+
+  </script>
+<% end %>
