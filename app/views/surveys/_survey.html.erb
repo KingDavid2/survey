@@ -12,6 +12,7 @@
     <ul class="horizontal-list">
       <li><%= link_to "Answer Questions", new_client_survey_attempt_path(survey.client, survey) %></li>
       <li><%= link_to "Edit", edit_client_survey_path(survey.client, survey) %></li>
+      <li><%= button_to "Reset Attempts", reset_attempts_client_survey_path(survey.client, survey), method: :post %></li>
       <li><%= link_to "Delete", survey, method: :delete %></li>
       <li><%= button_to survey.active ? "Deactivate" : "Activate", toggle_active_client_survey_path(survey.client, survey), method: :patch %></li>
     </ul>

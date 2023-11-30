@@ -80,6 +80,14 @@
       redirect_to surveys_path
     end
 
+    def reset_attempts
+      @survey.attempts.each do |attempt|
+        attempt.answers.destroy_all
+      end
+      @survey.attempts.destroy_all
+      redirect_to surveys_path
+    end
+
     def find_client!
       @client = Client.find(params[:client_id])
     end

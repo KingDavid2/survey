@@ -40,6 +40,10 @@ class SurveyPolicy < ApplicationPolicy
     @user.platform_admin?
   end
 
+  def reset_attempts?
+    @user.platform_admin?
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user
