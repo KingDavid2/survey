@@ -22,7 +22,7 @@ class Survey < ApplicationRecord
   end
 
   def last_section_number
-    questions.by_page(questions.last(2).first.page).pluck(:section).sort.last || 1
+    questions.where.not(section: nil).pluck(:section).sort.last || 1
   end
 
   def last_page_number
@@ -76,6 +76,39 @@ class Survey < ApplicationRecord
         new_question = question.dup
         new_question.question_text = question.question_text.dup
         new_question.question_text_1 = question.question_text_1.dup
+
+        new_survey.questions << new_question
+      end
+
+      if new_survey.save
+        new_survey
+      else
+        false
+      end
+    end
+  end
+
+  def merge(survey)
+    ActiveRecord::Base.transaction do
+      new_survey = self.dup
+      new_survey.introduction = self.introduction
+      new_survey.conclusion = self.conclusion
+
+      self.questions.each do |question|
+        new_question = question.dup
+        new_question.question_text = question.question_text.dup
+        new_question.question_text_1 = question.question_text_1.dup
+
+        new_survey.questions << new_question
+      end
+
+      survey.questions.each do |question|
+        new_question = question.dup
+        new_question.question_text = question.question_text.dup
+        new_question.question_text_1 = question.question_text_1.dup
+        new_question.section = question.section + last_section_number
+        new_question.page = question.page + last_page_number
+        new_question.position = question.position + last_position_number
 
         new_survey.questions << new_question
       end
