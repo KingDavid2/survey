@@ -79,7 +79,12 @@ class Survey < ApplicationRecord
 
         new_survey.questions << new_question
       end
-      new_survey.save
+
+      if new_survey.save
+        new_survey
+      else
+        false
+      end
     end
   end
 end

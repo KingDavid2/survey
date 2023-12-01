@@ -55,9 +55,10 @@
     end
 
     def duplicate
-      if @survey.duplicate
+      new_survey = @survey.duplicate
+      if new_survey
         flash[:notice] = "Survey duplicated successfully."
-        redirect_to edit_client_survey_path(@client, @survey)
+        redirect_to edit_client_survey_path(@client, new_survey)
       else
         flash[:notice] = "Failed to duplicate survey."
         redirect_back(fallback_location: root_path)
