@@ -46,11 +46,8 @@ class QuestionsController < ApplicationController
   end
 
   def duplicate
-    new_question = @question.dup
-    new_question.position = @survey.last_position_number + 10
-    new_question.question_text = @question.question_text.dup
-    new_question.question_text_1 = @question.question_text_1.dup
-    if new_question.save
+    new_question = @question.duplicate
+    if new_question
       flash[:notice] = "Question duplicated successfully."
       redirect_to edit_client_survey_question_path(@client, @survey, new_question)
     else

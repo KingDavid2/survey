@@ -169,4 +169,19 @@ class Question < ApplicationRecord
     inner_div = text_body.at_css('.trix-content div')
     inner_div.content == '...'
   end
+
+  def duplicate(position_steps = 10)
+    ActiveRecord::Base.transaction do
+      new_question = self.dup
+      new_question.position = survey.last_position_number + position_steps
+      new_question.question_text = self.question_text.dup
+      new_question.question_text_1 = self.question_text_1.dup
+
+      if new_question.save
+        new_question
+      else
+        false
+      end
+    end
+  end
 end
