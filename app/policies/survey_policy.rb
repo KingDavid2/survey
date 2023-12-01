@@ -44,6 +44,10 @@ class SurveyPolicy < ApplicationPolicy
     @user.platform_admin?
   end
 
+  def duplicate?
+    @user.platform_admin?
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user

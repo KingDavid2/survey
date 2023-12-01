@@ -67,12 +67,19 @@ class Survey < ApplicationRecord
       end
     end
   end
+
+  def duplicate
+    ActiveRecord::Base.transaction do
+      new_survey = self.dup
+      self.questions.each do |question|
+
+        new_question = question.dup
+        new_question.question_text = question.question_text.dup
+        new_question.question_text_1 = question.question_text_1.dup
+
+        new_survey.questions << new_question
+      end
+      new_survey.save
+    end
+  end
 end
-
-# client.surveys.each do |s|
-#   s.attempts.each do |a|
-#     a.answers.destroy_all
-#     a.destroy
-#   end
-# end
-

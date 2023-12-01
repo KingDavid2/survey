@@ -54,6 +54,16 @@
       end
     end
 
+    def duplicate
+      if @survey.duplicate
+        flash[:notice] = "Survey duplicated successfully."
+        redirect_to edit_client_survey_path(@client, @survey)
+      else
+        flash[:notice] = "Failed to duplicate survey."
+        redirect_back(fallback_location: root_path)
+      end
+    end
+
     def destroy
       @survey.destroy
 
@@ -100,7 +110,7 @@
     private
 
     def survey_params
-      params.require(:survey).permit(:name, :introduction, :conclusion, :active, :client_id)
+      params.require(:survey).permit(:name, :introduction, :conclusion, :active, :client_id, :slug)
     end
 
     def filter_params

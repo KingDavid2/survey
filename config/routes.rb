@@ -9,11 +9,11 @@ Rails.application.routes.draw do
     resources :surveys do
       resources :questions
       resources :attempts
-      patch :toggle_active, on: :member
     end
 
     resources :clients do
       resources :surveys do
+        get 'duplicate', on: :member
         resources :questions do
           get 'duplicate', on: :member
         end
