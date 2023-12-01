@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         end
         resources :attempts
         patch :toggle_active, on: :member
+        post :reset_attempts, on: :member
       end
     end
   end
