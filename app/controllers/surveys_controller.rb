@@ -66,6 +66,7 @@
     end
 
     def destroy
+      @survey.questions.destroy_all
       @survey.destroy
 
       respond_to do |format|
