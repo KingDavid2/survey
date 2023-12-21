@@ -7,8 +7,8 @@
   <%= f.fields_for :answer_text do |af| %>
     <%- answer.question.options.each_with_index do |option, index| %>
       <div class="mb-2 my-4">
-        <%= f.radio_button :answer_text, option, {id: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}", class: 'form-check-input'}  %>
-        <%= af.label "answer_text_#{index}", option, class: 'form-check-label', for: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}" %>
+        <%= f.radio_button :answer_text, option, {id: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}", class: 'form-check-input me-1'}  %>
+        <%= af.label "answer_text_#{index}", option, class: 'form-check-label d-inline', for: "#{f.object_name.gsub(/\]\[|[^-a-zA-Z0-9:.]/, "_").sub(/_$/, "")}_answer_text_#{index}" %>
       </div>
     <% end %>
   <% end %>
