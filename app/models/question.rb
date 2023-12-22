@@ -184,4 +184,12 @@ class Question < ApplicationRecord
       end
     end
   end
+
+  def options_shuffle!(shuffle = false)
+    if shuffle
+      options.shuffle
+    else
+      options
+    end
+  end
 end

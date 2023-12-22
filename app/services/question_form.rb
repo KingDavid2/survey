@@ -23,7 +23,7 @@ class QuestionForm < BaseService
 
   attr_accessor :client, :survey, :question, :default_text, :placeholder,
     :type, :question_text, :question_text_1, :section, :position, :answer_options, :answer_presence,
-    :answer_minimum_length, :answer_maximum_length, :page,
+    :answer_minimum_length, :answer_maximum_length, :page, :shuffle_options,
     :answer_greater_than_or_equal_to, :answer_less_than_or_equal_to, :matrix_size,
     :answer_presence_on_question, :answer_presence_on_answers, :answer_uniqueness_on_section,
     :answer_answer_text_count_equals_to, :answer_presence_on_section_if_checked, :answer_checked_and_not_required_short
@@ -69,6 +69,7 @@ class QuestionForm < BaseService
       :default_text => default_text,
       :placeholder => placeholder,
       :answer_options => answer_options,
+      :shuffle_options => shuffle_options,
       :matrix_size => matrix_size,
       :validation_rules => {
         :presence => answer_presence,
@@ -97,6 +98,7 @@ class QuestionForm < BaseService
     self.default_text    = question.default_text
     self.placeholder     = question.placeholder
     self.answer_options  = question.answer_options
+    self.shuffle_options = question.shuffle_options
     self.matrix_size  = question.matrix_size
     self.answer_presence = question.rules[:presence]
     self.answer_presence_on_question = question.rules[:presence_on_question]
