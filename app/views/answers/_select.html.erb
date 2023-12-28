@@ -10,12 +10,12 @@
         <%= answer.question.question_text_1 %>
       </div>
     <% else %>
-      <div class='col-10'>
+      <div class='col-8 col-md-10'>
         <%= answer.question.question_text_with_section_if_first %>
         <%= render partial: "answers/errors", locals: {answer: answer} %>
       </div>
     <% end %>
-    <div class='col-2'>
+    <div class='col-4 col-md-2'>
       <%= f.select :answer_text, answer.question.options, {include_blank: true}, { class: "form-select id-#{answer.question.section}", data: {previously: ''} }  %>
     </div>
   </div>
