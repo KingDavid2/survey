@@ -1,5 +1,5 @@
 <div class='mx-4 my-4'>
-  <div class='my-3'>
+  <div class='my-3 <%= "id-#{answer.question.section}" %>'>
     <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
     <%= render partial: "answers/errors", locals: {answer: answer} %>
   </div>
@@ -13,3 +13,11 @@
     <% end %>
   <% end %>
 </div>
+
+<script>
+  var links<%= answer.question.section %> = document.querySelectorAll('.id-<%= answer.question.section %> a');
+
+  links<%= answer.question.section %>.forEach(function(link) {
+    link.setAttribute('target', '_blank');
+  });
+</script>

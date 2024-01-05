@@ -1,4 +1,12 @@
 <%= render partial: "answers/errors", locals: {answer: answer} %>
-<div class='row mx-4 my-4'>
+<div class='row mx-4 my-4 <%= "id-#{answer.question.section}" %>'>
   <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
 </div>
+
+<script>
+  var links<%= answer.question.section %> = document.querySelectorAll('.id-<%= answer.question.section %> a');
+
+  links.forEach(function(link) {
+    link.setAttribute('target', '_blank');
+  });
+</script>
