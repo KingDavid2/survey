@@ -11,6 +11,6 @@
 
   <p>
     <strong>URL:</strong>
-    <%= link_to 'Download File', rails_blob_path(@document.file, disposition: 'attachment') if @document.file.attached? %>
+    <%= link_to 'Download File', rails_blob_path(document.file, disposition: 'attachment') if document.file.attached? %>
   </p>
 </div>
