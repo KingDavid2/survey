@@ -112,7 +112,7 @@
     private
 
     def survey_params
-      params.require(:survey).permit(:name, :introduction, :conclusion, :active, :client_id, :slug, :show_title)
+      params.require(:survey).permit(:name, :introduction, :conclusion, :conclusion_2, :active, :client_id, :slug, :show_title, :conclusion_2_on_not_acceptance)
     end
 
     def filter_params

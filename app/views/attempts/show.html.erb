@@ -1,1 +1,6 @@
-<%= @survey.conclusion %>
+
+<% if @attempt.terms_accepted? %>
+  <%= @survey.conclusion %>
+<% else %>
+  <%= @survey.conclusion_2 %>
+<% end %>

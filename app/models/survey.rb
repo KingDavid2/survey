@@ -16,6 +16,8 @@ class Survey < ApplicationRecord
 
   has_rich_text :introduction
   has_rich_text :conclusion
+  has_rich_text :conclusion_2
+
 
   def pages
     questions.pluck(:page).uniq.count
