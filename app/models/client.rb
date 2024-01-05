@@ -5,5 +5,7 @@ class Client < ApplicationRecord
   friendly_id :name, use: :slugged
 
   has_many :surveys
+  has_many :documents
+  
   has_one_attached :nav_logo
 end

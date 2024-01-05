@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  resources :survey_comments
-
   get '/admin', to: 'surveys#index'
   scope :admin do
     devise_for :users
 
+    resources :documents
+    resources :survey_comments
     resources :clients
     resources :surveys do
       resources :questions

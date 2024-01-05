@@ -1,0 +1,17 @@
+<div id="<%= dom_id document %>">
+  <p>
+    <strong>Client:</strong>
+    <%= document.client_id %>
+  </p>
+
+  <p>
+    <strong>Name:</strong>
+    <%= document.name %>
+  </p>
+
+  <p>
+    <strong>URL:</strong>
+    <%= url_for(document.file) %>
+  </p>
+
+</div>

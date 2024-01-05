@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_22_031816) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_04_024447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -79,6 +79,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_031816) do
     t.index ["slug"], name: "index_clients_on_slug", unique: true
   end
 
+  create_table "documents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "client_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_documents_on_client_id"
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.uuid "sluggable_id", null: false
@@ -137,6 +145,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_031816) do
   add_foreign_key "answers", "attempts"
   add_foreign_key "answers", "questions"
   add_foreign_key "attempts", "surveys"
+  add_foreign_key "documents", "clients"
   add_foreign_key "questions", "surveys"
   add_foreign_key "surveys", "clients"
 end
