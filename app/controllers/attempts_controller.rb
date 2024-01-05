@@ -49,6 +49,7 @@ class AttemptsController < ApplicationController
       if @attempt_builder.save
         # @attempt_builder.attempt.save!
         if @attempt_builder.completed_and_valid?
+          @attempt_builder.attempt.reset_answers_if_not_accept_privacy
           redirect_to after_answer_path_for
         elsif @attempt_builder.answers_valid?
           redirect_to edit_attempt_flat_path(id: @attempt_builder.attempt.id, step: @attempt_builder.step.to_i + 1)

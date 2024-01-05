@@ -113,6 +113,16 @@
     <%= f.text_field :answer_answer_text_count_equals_to %>
   </div>
 
+  <div class="form-group mb-2">
+    <%= f.check_box :answer_accept_privacy %>
+    <%= f.label :answer_accept_privacy %>
+  </div>
+
+  <div class="form-group mb-2">
+    <%= f.label :answer_accept_privacy_on_selection %>
+    <%= f.text_area :answer_accept_privacy_on_selection, rows: 10, columns: 50 %>
+  </div>
+
   <div class="form-group mb-2 d-none">
     <%= f.label :answer_minimum_length %>
     <%= f.text_field :answer_minimum_length %>

@@ -94,7 +94,7 @@
 
     def reset_attempts
       @survey.attempts.each do |attempt|
-        attempt.answers.destroy_all
+        attempt.reset_answers
       end
       @survey.attempts.destroy_all
       redirect_to surveys_path
