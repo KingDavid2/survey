@@ -192,4 +192,8 @@ class Question < ApplicationRecord
       options
     end
   end
+
+  def flat_id
+    id.gsub("-", "")
+  end
 end

@@ -1,12 +1,12 @@
 <%= render partial: "answers/errors", locals: {answer: answer} %>
-<div class='row mx-4 my-4 <%= "id-#{answer.question.section}" %>'>
+<div class='row mx-4 my-4 <%= "id-#{answer.question.flat_id}" %>'>
   <%= f.label :answer_text, answer.question.question_text_with_section_if_first %>
 </div>
 
 <script>
-  var links<%= answer.question.section %> = document.querySelectorAll('.id-<%= answer.question.section %> a');
+  var links<%= answer.question.flat_id %> = document.querySelectorAll('.id-<%= answer.question.flat_id %> a');
 
-  links.forEach(function(link) {
+  links<%= answer.question.flat_id %>.forEach(function(link) {
     link.setAttribute('target', '_blank');
   });
 </script>
