@@ -2,6 +2,24 @@
 
 <%= link_to "Descargar resupestas", params.permit!.merge(format: :csv) %>
 
+<%= form_for client_results_survey_path(@client, @survey), method: :get do |f| %>
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Filtrar</h5>
+      <%= fields_for :filter do |filter_fields| %>
+        <div class="form-group mb-2">
+          <%= filter_fields.label :question, "Selecciona pregunta" %>
+          <%= filter_fields.select :question_ids, @radio_questions, {}, { class: 'form-select question_select' }  %>
+        </div>
+        <div class="form-group mb-2">
+          <%= filter_fields.label :options, "Selecciona respuesta" %>
+          <%= filter_fields.select :options, {}, {}, {class: 'form-select answer_select' }  %>
+        </div>
+      <% end %>
+    </div>
+  </div>  
+<% end %>
+
 <% @survey_results.each do | section, results | %>
 
   <div class="card mb-4">
@@ -13,3 +31,53 @@
     </div>
   </div>  
 <% end %>
+
+
+<script>
+  const questionSelect = document.getElementsByClassName('question_select')[0];
+  const answerSelect = document.getElementsByClassName('answer_select')[0];
+  const surveyIda = '<%= @survey.id %>'; // Assuming @attempt is available in your view
+  
+  // Function to populate answer-select dropdown
+  const populateAnswerSelect = (surveyId, questionId) => {
+    fetch(`/surveys/${surveyId}/questions/${questionId}/answers.json`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // Clear previous options
+        answerSelect.innerHTML = '';
+
+        const option = document.createElement('option');
+        option.value = '';
+        option.text = 'Selecciona una respuesta';
+        answerSelect.appendChild(option);
+
+        // Populate with new options
+        data.forEach(answer => {
+          const option = document.createElement('option');
+          option.value = answer;
+          option.text = answer;
+          answerSelect.appendChild(option);
+        });
+      })
+      .catch(error => console.error('Error fetching answers:', error));
+  };
+
+  // Populate answer-select dropdown when page loads
+  populateAnswerSelect('<%= @survey.id %>', questionSelect.value);
+
+  // Add change event listener to question-select dropdown
+  questionSelect.addEventListener('change', () => {
+    const surveyId = '<%= @survey.id %>'; // Assuming @survey is available in your view
+    const questionId = questionSelect.value;
+    populateAnswerSelect(surveyId, questionId);
+  });
+
+  answerSelect.addEventListener('change', () => {
+    const questionId = [questionSelect.value]; // Get the selected question ID
+    const answerText = [answerSelect.value]; // Get the selected answer text
+    const newUrl = window.location.href.split('?')[0] + `?filter[question_ids][]=${questionId}&filter[options][]=${answerText}`;
+    window.location.href = newUrl;
+  });
+
+</script>

@@ -24,6 +24,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :surveys do
+    resources :questions do
+      resources :answers, only: [:index]
+    end
+  end
+
   resources :clients do
     resources :surveys do
       resources :attempts

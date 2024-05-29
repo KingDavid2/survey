@@ -2,6 +2,7 @@ class ResultsController < ApplicationController
   before_action :find_client!
   before_action :find_surveys!
   before_action :find_survey!, only: :show
+  before_action :initialize_results!, only: :show
 
   def index
   end
@@ -9,7 +10,6 @@ class ResultsController < ApplicationController
   def show
     params[:filter] ||= {}
     @survey_results = SurveyResults.new(survey: @survey).extract(filter_params, true)
-
     respond_to do |format|
       format.html
       format.csv { send_data(@survey.results_to_csv(filter_params)) }
@@ -35,6 +35,12 @@ class ResultsController < ApplicationController
   end
 
   def filter_params
-    params[:filter].permit({ question_ids: [], options: []})
+    params[:filter].permit({question_ids: [], options: []})
+  end
+
+  def initialize_results!
+    @radio_questions = @survey.questions.where(type: 'Questions::Radio').map do |question|
+      [question.question_text.body.html_safe, question.id]
+    end
   end
 end
