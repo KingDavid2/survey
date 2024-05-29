@@ -2,10 +2,12 @@
 
 <%= link_to "Descargar resupestas", params.permit!.merge(format: :csv) %>
 
+<%= link_to 'Mostrar todo', client_results_survey_path(@client, @survey), class: 'btn btn-primary' %>
 <%= form_for client_results_survey_path(@client, @survey), method: :get do |f| %>
   <div class="card mb-4">
     <div class="card-body">
       <h5 class="card-title">Filtrar</h5>
+
       <%= fields_for :filter do |filter_fields| %>
         <div class="form-group mb-2">
           <%= filter_fields.label :question, "Selecciona pregunta" %>
