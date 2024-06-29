@@ -6,7 +6,7 @@
   <%= f.fields_for :answer_text do |af| %>
     <%- answer.question.options_shuffle!(answer.question.shuffle_options).each_with_index do |option, index| %>
       <div class="form-check mb-2 my-4">
-        <%= af.check_box index, { checked: checkbox_checked?(answer, option), class: "form-check-input id-#{answer.question.section} #{ ( option == 'Ninguno' || option == 'No conozco' ) ? 'ninguno' : 'opciones' }" }, option %>
+        <%= af.check_box index, { checked: checkbox_checked?(answer, option), class: "form-check-input id-#{answer.question.section} #{ ( option == 'Ninguno' || option == 'No conozco' || option == 'Ninguna de las anteriores' || option == 'No cuenta con ninguna de las anteriores' ) ? 'ninguno' : 'opciones' }" }, option %>
         <%= af.label index, option, class: 'form-check-label' %>
       </div>
     <% end %>
